@@ -217,7 +217,7 @@ package: gerbil
     error raise
     exception? error-object?
     error-message error-irritants error-trace
-    display-exception
+    display-exception dump-stack-trace?
     ;; OS
     exit getenv setenv
     current-directory create-directory create-directory*
@@ -271,6 +271,8 @@ package: gerbil
     keyword-dispatch keyword-rest
     ;; gerbil specifics
     gerbil-version-string gerbil-system-version-string system-version
+    ;; build manifest
+    build-manifest filter-build-manifest display-build-manifest build-manifest-string
     ;; system type information
     gerbil-system system-type
     ;; voodoo doll
@@ -626,7 +628,9 @@ package: gerbil
         ((_ message detail ...)
          (stx-string? #'message)
          (apply raise-syntax-error #f (stx-e #'message) stx
-                (syntax->list #'(detail ...)))))))
+                (syntax->list #'(detail ...))))))
+
+    (defrules defmutable () ((_ var value) (begin (def var value) (set! var var) (void)))))
 
   (import <sugar:1>
           (phi: +1 <sugar:1>))
@@ -3064,11 +3068,11 @@ package: gerbil
       (lambda () postlude rest ...))))
 
   (defsyntax (@bytes stx)
-  (syntax-case stx ()
-    ((_ str)
-     (stx-string? #'str)
-     (with-syntax ((e (string->bytes (stx-e #'str))))
-       #'(quote e)))))
+    (syntax-case stx ()
+      ((_ str)
+       (stx-string? #'str)
+       (with-syntax ((e (string->bytes (stx-e #'str))))
+         #'(quote e)))))
 
   ;; ...
   )

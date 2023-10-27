@@ -1,104 +1,104 @@
 (declare (block) (standard-bindings) (extended-bindings) (inlining-limit 200))
 (begin
-  (define |gerbil/core$<MOP>$<MOP:3>[2]#_g42914_|
+  (define |gerbil/core$<MOP>$<MOP:3>[2]#_g42988_|
     (##structure
      gx#syntax-quote::t
      'runtime-type-info::t
      #f
      (gx#current-expander-context)
      '()))
-  (define |gerbil/core$<MOP>$<MOP:3>[2]#_g42916_|
+  (define |gerbil/core$<MOP>$<MOP:3>[2]#_g42990_|
     (##structure
      gx#syntax-quote::t
      'runtime-struct-info::t
      #f
      (gx#current-expander-context)
      '()))
-  (define |gerbil/core$<MOP>$<MOP:3>[2]#_g42918_|
+  (define |gerbil/core$<MOP>$<MOP:3>[2]#_g42992_|
     (##structure
      gx#syntax-quote::t
      'runtime-class-info::t
      #f
      (gx#current-expander-context)
      '()))
-  (define |gerbil/core$<MOP>$<MOP:3>[2]#_g42920_|
+  (define |gerbil/core$<MOP>$<MOP:3>[2]#_g42994_|
     (##structure
      gx#syntax-quote::t
      'expander-type-info::t
      #f
      (gx#current-expander-context)
      '()))
-  (define |gerbil/core$<MOP>$<MOP:3>[2]#_g42922_|
+  (define |gerbil/core$<MOP>$<MOP:3>[2]#_g42996_|
     (##structure
      gx#syntax-quote::t
      'extended-runtime-type-info::t
      #f
      (gx#current-expander-context)
      '()))
-  (define |gerbil/core$<MOP>$<MOP:3>[2]#_g42924_|
+  (define |gerbil/core$<MOP>$<MOP:3>[2]#_g42998_|
     (##structure
      gx#syntax-quote::t
      'extended-struct-info::t
      #f
      (gx#current-expander-context)
      '()))
-  (define |gerbil/core$<MOP>$<MOP:3>[2]#_g42926_|
+  (define |gerbil/core$<MOP>$<MOP:3>[2]#_g43000_|
     (##structure
      gx#syntax-quote::t
      'extended-class-info::t
      #f
      (gx#current-expander-context)
      '()))
-  (define |gerbil/core$<MOP>$<MOP:3>[2]#_g42928_|
+  (define |gerbil/core$<MOP>$<MOP:3>[2]#_g43002_|
     (##structure
      gx#syntax-quote::t
      'runtime-rtd-exhibitor::t
      #f
      (gx#current-expander-context)
      '()))
-  (define |gerbil/core$<MOP>$<MOP:3>[2]#_g42930_|
+  (define |gerbil/core$<MOP>$<MOP:3>[2]#_g43004_|
     (##structure
      gx#syntax-quote::t
      'runtime-struct-exhibitor::t
      #f
      (gx#current-expander-context)
      '()))
-  (define |gerbil/core$<MOP>$<MOP:3>[2]#_g42932_|
+  (define |gerbil/core$<MOP>$<MOP:3>[2]#_g43006_|
     (##structure
      gx#syntax-quote::t
      'runtime-class-exhibitor::t
      #f
      (gx#current-expander-context)
      '()))
-  (define |gerbil/core$<MOP>$<MOP:3>[2]#_g42936_|
+  (define |gerbil/core$<MOP>$<MOP:3>[2]#_g43010_|
     (##structure
      gx#syntax-quote::t
      'macro-object::t
      #f
      (gx#current-expander-context)
      '()))
-  (define |gerbil/core$<MOP>$<MOP:3>[2]#_g42937_|
+  (define |gerbil/core$<MOP>$<MOP:3>[2]#_g43011_|
     (##structure
      gx#syntax-quote::t
      'make-macro-object
      #f
      (gx#current-expander-context)
      '()))
-  (define |gerbil/core$<MOP>$<MOP:3>[2]#_g42938_|
+  (define |gerbil/core$<MOP>$<MOP:3>[2]#_g43012_|
     (##structure
      gx#syntax-quote::t
      'macro-object?
      #f
      (gx#current-expander-context)
      '()))
-  (define |gerbil/core$<MOP>$<MOP:3>[2]#_g42939_|
+  (define |gerbil/core$<MOP>$<MOP:3>[2]#_g43013_|
     (##structure
      gx#syntax-quote::t
      'macro-object-macro
      #f
      (gx#current-expander-context)
      '()))
-  (define |gerbil/core$<MOP>$<MOP:3>[2]#_g42940_|
+  (define |gerbil/core$<MOP>$<MOP:3>[2]#_g43014_|
     (##structure
      gx#syntax-quote::t
      'macro-object-macro-set!
@@ -107,94 +107,94 @@
      '()))
   (begin
     (define |gerbil/core$<MOP>$<MOP:3>[:1:]#runtime-type-info|
-      (let ((__tmp42913 |gerbil/core$<MOP>$<MOP:3>[2]#_g42914_|))
+      (let ((__tmp42987 |gerbil/core$<MOP>$<MOP:3>[2]#_g42988_|))
         (declare (not safe))
         (make-class-instance
          |gerbil/core$<MOP>$<MOP:2>[1]#runtime-class-info::t|
          'runtime-identifier:
-         __tmp42913)))
+         __tmp42987)))
     (define |gerbil/core$<MOP>$<MOP:3>[:1:]#runtime-struct-info|
-      (let ((__tmp42915 |gerbil/core$<MOP>$<MOP:3>[2]#_g42916_|))
+      (let ((__tmp42989 |gerbil/core$<MOP>$<MOP:3>[2]#_g42990_|))
         (declare (not safe))
         (make-class-instance
          |gerbil/core$<MOP>$<MOP:2>[1]#runtime-class-info::t|
          'runtime-identifier:
-         __tmp42915)))
+         __tmp42989)))
     (define |gerbil/core$<MOP>$<MOP:3>[:1:]#runtime-class-info|
-      (let ((__tmp42917 |gerbil/core$<MOP>$<MOP:3>[2]#_g42918_|))
+      (let ((__tmp42991 |gerbil/core$<MOP>$<MOP:3>[2]#_g42992_|))
         (declare (not safe))
         (make-class-instance
          |gerbil/core$<MOP>$<MOP:2>[1]#runtime-class-info::t|
          'runtime-identifier:
-         __tmp42917)))
+         __tmp42991)))
     (define |gerbil/core$<MOP>$<MOP:3>[:1:]#expander-type-info|
-      (let ((__tmp42919 |gerbil/core$<MOP>$<MOP:3>[2]#_g42920_|))
+      (let ((__tmp42993 |gerbil/core$<MOP>$<MOP:3>[2]#_g42994_|))
         (declare (not safe))
         (make-class-instance
          |gerbil/core$<MOP>$<MOP:2>[1]#runtime-class-info::t|
          'runtime-identifier:
-         __tmp42919)))
+         __tmp42993)))
     (define |gerbil/core$<MOP>$<MOP:3>[:1:]#extended-runtime-type-info|
-      (let ((__tmp42921 |gerbil/core$<MOP>$<MOP:3>[2]#_g42922_|))
+      (let ((__tmp42995 |gerbil/core$<MOP>$<MOP:3>[2]#_g42996_|))
         (declare (not safe))
         (make-class-instance
          |gerbil/core$<MOP>$<MOP:2>[1]#runtime-class-info::t|
          'runtime-identifier:
-         __tmp42921)))
+         __tmp42995)))
     (define |gerbil/core$<MOP>$<MOP:3>[:1:]#extended-struct-info|
-      (let ((__tmp42923 |gerbil/core$<MOP>$<MOP:3>[2]#_g42924_|))
+      (let ((__tmp42997 |gerbil/core$<MOP>$<MOP:3>[2]#_g42998_|))
         (declare (not safe))
         (make-class-instance
          |gerbil/core$<MOP>$<MOP:2>[1]#runtime-class-info::t|
          'runtime-identifier:
-         __tmp42923)))
+         __tmp42997)))
     (define |gerbil/core$<MOP>$<MOP:3>[:1:]#extended-class-info|
-      (let ((__tmp42925 |gerbil/core$<MOP>$<MOP:3>[2]#_g42926_|))
+      (let ((__tmp42999 |gerbil/core$<MOP>$<MOP:3>[2]#_g43000_|))
         (declare (not safe))
         (make-class-instance
          |gerbil/core$<MOP>$<MOP:2>[1]#runtime-class-info::t|
          'runtime-identifier:
-         __tmp42925)))
+         __tmp42999)))
     (define |gerbil/core$<MOP>$<MOP:3>[:1:]#runtime-rtd-exhibitor|
-      (let ((__tmp42927 |gerbil/core$<MOP>$<MOP:3>[2]#_g42928_|))
+      (let ((__tmp43001 |gerbil/core$<MOP>$<MOP:3>[2]#_g43002_|))
         (declare (not safe))
         (make-class-instance
          |gerbil/core$<MOP>$<MOP:2>[1]#runtime-class-info::t|
          'runtime-identifier:
-         __tmp42927)))
+         __tmp43001)))
     (define |gerbil/core$<MOP>$<MOP:3>[:1:]#runtime-struct-exhibitor|
-      (let ((__tmp42929 |gerbil/core$<MOP>$<MOP:3>[2]#_g42930_|))
+      (let ((__tmp43003 |gerbil/core$<MOP>$<MOP:3>[2]#_g43004_|))
         (declare (not safe))
         (make-class-instance
          |gerbil/core$<MOP>$<MOP:2>[1]#runtime-class-info::t|
          'runtime-identifier:
-         __tmp42929)))
+         __tmp43003)))
     (define |gerbil/core$<MOP>$<MOP:3>[:1:]#runtime-class-exhibitor|
-      (let ((__tmp42931 |gerbil/core$<MOP>$<MOP:3>[2]#_g42932_|))
+      (let ((__tmp43005 |gerbil/core$<MOP>$<MOP:3>[2]#_g43006_|))
         (declare (not safe))
         (make-class-instance
          |gerbil/core$<MOP>$<MOP:2>[1]#runtime-class-info::t|
          'runtime-identifier:
-         __tmp42931)))
+         __tmp43005)))
     (define |gerbil/core$<MOP>$<MOP:3>[:1:]#macro-object|
-      (let ((__tmp42941 |gerbil/core$<MOP>$<MOP:3>[2]#_g42936_|)
-            (__tmp42935
+      (let ((__tmp43015 |gerbil/core$<MOP>$<MOP:3>[2]#_g43010_|)
+            (__tmp43009
              (cons '()
-                   (cons |gerbil/core$<MOP>$<MOP:3>[2]#_g42936_|
-                         (cons |gerbil/core$<MOP>$<MOP:3>[2]#_g42937_|
-                               (cons |gerbil/core$<MOP>$<MOP:3>[2]#_g42938_|
-                                     (cons (cons |gerbil/core$<MOP>$<MOP:3>[2]#_g42939_|
+                   (cons |gerbil/core$<MOP>$<MOP:3>[2]#_g43010_|
+                         (cons |gerbil/core$<MOP>$<MOP:3>[2]#_g43011_|
+                               (cons |gerbil/core$<MOP>$<MOP:3>[2]#_g43012_|
+                                     (cons (cons |gerbil/core$<MOP>$<MOP:3>[2]#_g43013_|
                                                  '())
-                                           (cons (cons |gerbil/core$<MOP>$<MOP:3>[2]#_g42940_|
+                                           (cons (cons |gerbil/core$<MOP>$<MOP:3>[2]#_g43014_|
                                                        '())
                                                  '())))))))
-            (__tmp42933
-             (let ((__tmp42934 (list)))
+            (__tmp43007
+             (let ((__tmp43008 (list)))
                (declare (not safe))
                (##structure
                 |gerbil/core$<MOP>$<MOP:2>[1]#runtime-class-exhibitor::t|
                 'gerbil.core#macro-object::t
-                __tmp42934
+                __tmp43008
                 'macro-object
                 '#f
                 '()
@@ -203,8 +203,8 @@
         (make-class-instance
          |gerbil/core$<MOP>$<MOP:2>[1]#extended-class-info::t|
          'runtime-identifier:
-         __tmp42941
+         __tmp43015
          'expander-identifiers:
-         __tmp42935
+         __tmp43009
          'type-exhibitor:
-         __tmp42933)))))
+         __tmp43007)))))
