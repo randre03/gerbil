@@ -3,7 +3,10 @@ package: gerbil/runtime
 namespace: #f
 
 (%#begin (%#export #t)
-         (%#import :gerbil/runtime/gambit :gerbil/runtime/util)
+         (%#import
+          :gerbil/runtime/gambit
+          :gerbil/runtime/util
+          :gerbil/runtime/control)
          (%#define-runtime gerbil-version-string gerbil-version-string)
          (%#begin (%#begin-syntax
                    (%#call (%#ref load-module)
@@ -23,6 +26,8 @@ namespace: #f
                            (%#define-runtime
                             display-build-manifest
                             display-build-manifest)))
+         (%#define-runtime build-manifest/layer build-manifest/layer)
+         (%#define-runtime build-manifest/head build-manifest/head)
          (%#begin (%#define-runtime
                    build-manifest-string__%
                    build-manifest-string__%)

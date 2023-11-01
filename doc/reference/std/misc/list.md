@@ -359,6 +359,53 @@ Alias for `delete-duplicates` and `delete-duplicates!` ([SRFI 1](https://srfi.sc
 ```
 :::
 
+## delete-duplicates/hash ##
+```scheme
+(delete-duplicates/hash lst
+  [table: (make-hash-table)]
+  [key: identity]
+  [from-end?: #f]) -> list
+
+  lst       := list from which to delete elements
+  table     := a hash-table with suitable test function and initial elements to detect duplicates
+  key       := optional unary procedure to get the to compare item out of a list element
+  from-end? := optional boolean to delete from the end rather than from the start
+```
+`delete-duplicates/hash` returns a copy of the list
+from which duplicates are removed,
+using an algorithm in `O(n)` backed by the optional hash-table `table`.
+
+If no `table` is specified, the default is to create a new one that uses
+the `equal?` predicate. By overriding this default, the user may select
+a different equality predicate, pre-fill a number of already seen entries to
+remove, and/or keep a set of entries seen for later use or reuse.
+
+The `key` function, which defaults to `identity`, specifies
+which part of each element must be seen only once.
+The `from-end?:` flag if true specifies that latter elements will be deleted,
+instead or earlier elements (if the flag is false, the default).
+Thus, for instance, keyword arguments `key: car from-end? #t` can be used
+to remove redundant entries in an `alist`.
+
+`delete-duplicates/hash` is more efficient than
+`unique`, `unique!`, `delete-duplicates`, `delete-duplicates!`
+that have quadratic cost, in exchange for which it only works
+for the builtin equality predicates `equal?`, `eqv?`, `eq?`.
+
+::: tip Examples:
+```scheme
+> (delete-duplicates/hash '(a b c d a e f c))
+(b d a e f c)
+> (delete-duplicates/hash '(a b c d a e f c) from-end?: #t)
+(a b c d e f)
+> (delete-duplicates/hash '(a b c d a e f c) table: (hash (a #f)))
+(b d e f c)
+> (delete-duplicates/hash '((a 1) (b 2) (c 3) (a 4) (d 5) (c 6))
+                          from-end?: #t key: car)
+((a 1) (b 2) (c 3) (d 5))
+```
+:::
+
 ## duplicates ##
 
 ```scheme

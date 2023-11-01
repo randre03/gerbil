@@ -3,7 +3,7 @@
 ;;; safe type descriptor accessors
 (import :std/error)
 (export (rename: checked-object-type object-type)
-        type? type-id type-name type-super
+        type? type=? type-id type-name type-super
         type-descriptor?
         (rename: checked-type-descriptor-mixin type-descriptor-mixin)
         (rename: checked-type-descriptor-fields type-descriptor-fields)
@@ -52,3 +52,6 @@
 (defcheck-type-descriptor checked-type-descriptor-ctor type-descriptor-ctor)
 (defcheck-type-descriptor checked-type-descriptor-slots type-descriptor-slots)
 (defcheck-type-descriptor checked-type-descriptor-methods type-descriptor-methods)
+
+(def (type=? x y)
+  (eq? (type-id x) (type-id y)))

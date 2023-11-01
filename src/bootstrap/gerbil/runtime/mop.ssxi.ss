@@ -2,6 +2,7 @@ prelude: :gerbil/compiler/ssxi
 package: gerbil/runtime
 
 (begin
+  (declare-type type=? (@lambda 2 #f))
   (declare-type type-descriptor? (@lambda 1 #f))
   (declare-type struct-type? (@lambda 1 #f))
   (declare-type class-type? (@lambda 1 #f))
@@ -29,9 +30,15 @@ package: gerbil/runtime
   (declare-type struct-field-ref (@lambda 3 #f))
   (declare-type struct-field-set! (@lambda 4 #f))
   (declare-type struct-subtype? (@lambda 2 #f))
+  (declare-type base-struct/1 (@lambda 1 #f))
+  (declare-type base-struct/2 (@lambda 2 #f))
+  (declare-type base-struct (@lambda (0) #f))
+  (declare-type find-super-ctor (@lambda 1 #f))
+  (declare-type compute-class-slots (@lambda 3 #f))
   (declare-type make-class-type (@lambda 6 #f))
+  (declare-type struct-precedence-list (@lambda 1 #f))
+  (declare-type class-precedence-list (@lambda 1 #f))
   (declare-type class-linearize-mixins (@lambda 1 #f))
-  (declare-type __linearize-mixins (@lambda 1 #f))
   (declare-type make-class-predicate (@lambda 1 #f))
   (declare-type make-class-slot-accessor (@lambda 2 #f))
   (declare-type make-class-slot-mutator (@lambda 2 #f))

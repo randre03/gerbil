@@ -4,25 +4,37 @@
     (lambda (_$stx32800_)
       (let ((_g3280332810_
              (lambda (_g3280432806_)
-               (gx#raise-syntax-error '#f '"Bad syntax" _g3280432806_))))
+               (gx#raise-syntax-error
+                '#f
+                '"Bad syntax; invalid match target"
+                _g3280432806_))))
         (_g3280332810_ _$stx32800_))))
   (define |gerbil/core$<more-sugar>[:0:]#:~|
     (lambda (_$stx32814_)
       (let ((_g3281732824_
              (lambda (_g3281832820_)
-               (gx#raise-syntax-error '#f '"Bad syntax" _g3281832820_))))
+               (gx#raise-syntax-error
+                '#f
+                '"Bad syntax; invalid match target"
+                _g3281832820_))))
         (_g3281732824_ _$stx32814_))))
   (define |gerbil/core$<more-sugar>[:0:]#:-|
     (lambda (_$stx32828_)
       (let ((_g3283132838_
              (lambda (_g3283232834_)
-               (gx#raise-syntax-error '#f '"Bad syntax" _g3283232834_))))
+               (gx#raise-syntax-error
+                '#f
+                '"Bad syntax; invalid match target"
+                _g3283232834_))))
         (_g3283132838_ _$stx32828_))))
   (define |gerbil/core$<more-sugar>[:0:]#:=|
     (lambda (_$stx32842_)
       (let ((_g3284532852_
              (lambda (_g3284632848_)
-               (gx#raise-syntax-error '#f '"Bad syntax" _g3284632848_))))
+               (gx#raise-syntax-error
+                '#f
+                '"Bad syntax; invalid match target"
+                _g3284632848_))))
         (_g3284532852_ _$stx32842_))))
   (define |gerbil/core$<more-sugar>[1]#setq-macro::t|
     (make-class-type
@@ -57,27 +69,30 @@
   (define |gerbil/core$<more-sugar>[1]#syntax-local-setf-macro?|
     (lambda (_stx32860_)
       (if (gx#identifier? _stx32860_)
-          (let ((__tmp43144 (gx#syntax-local-value _stx32860_ false)))
+          (let ((__tmp43114 (gx#syntax-local-value _stx32860_ false)))
             (declare (not safe))
             (class-instance?
              |gerbil/core$<more-sugar>[1]#setf-macro::t|
-             __tmp43144))
+             __tmp43114))
           '#f)))
   (define |gerbil/core$<more-sugar>[1]#syntax-local-setq-macro?|
     (lambda (_stx32857_)
       (if (gx#identifier? _stx32857_)
-          (let ((__tmp43145 (gx#syntax-local-value _stx32857_ false)))
+          (let ((__tmp43115 (gx#syntax-local-value _stx32857_ false)))
             (declare (not safe))
             (class-instance?
              |gerbil/core$<more-sugar>[1]#setq-macro::t|
-             __tmp43145))
+             __tmp43115))
           '#f)))
   (define |gerbil/core$<more-sugar>[:0:]#set!|
     (lambda (_stx32871_)
       (let* ((___stx4239342394_ _stx32871_)
              (_g3287732936_
               (lambda ()
-                (gx#raise-syntax-error '#f '"Bad syntax" ___stx4239342394_))))
+                (gx#raise-syntax-error
+                 '#f
+                 '"Bad syntax; invalid match target"
+                 ___stx4239342394_))))
         (let ((___kont4239642397_
                (lambda (_L33209_)
                  (gx#core-apply-expander
@@ -89,7 +104,7 @@
                          (lambda (_g3313433137_)
                            (gx#raise-syntax-error
                             '#f
-                            '"Bad syntax"
+                            '"Bad syntax; invalid match target"
                             _g3313433137_)))
                         (_g3313233168_
                          (lambda (_g3313433145_)
@@ -274,11 +289,11 @@
                                          (let ()
                                            (declare (not safe))
                                            (##car _e3288833199_))))
-                                    (if (let ((__tmp43146
+                                    (if (let ((__tmp43116
                                                (gx#datum->syntax '#f 'setfid)))
                                           (declare (not safe))
                                           (|gerbil/core$<more-sugar>[1]#syntax-local-setf-macro?|
-                                           __tmp43146))
+                                           __tmp43116))
                                         (let ((_L33209_ _hd3288733203_))
                                           (___kont4239642397_ _L33209_))
                                         (if (gx#stx-pair/null? _tl3288633206_)
@@ -340,7 +355,10 @@
     (lambda (_stx33229_)
       (let* ((_g3323233256_
               (lambda (_g3323333252_)
-                (gx#raise-syntax-error '#f '"Bad syntax" _g3323333252_)))
+                (gx#raise-syntax-error
+                 '#f
+                 '"Bad syntax; invalid match target"
+                 _g3323333252_)))
              (_g3323133434_
               (lambda (_g3323333260_)
                 (if (gx#stx-pair? _g3323333260_)
@@ -355,30 +373,30 @@
                                (##cdr _e3323833263_))))
                         (if (gx#stx-pair/null? _tl3323633270_)
                             (if (fx>= (gx#stx-length _tl3323633270_) '1)
-                                (let ((_g43147_
+                                (let ((_g43117_
                                        (gx#syntax-split-splice
                                         _tl3323633270_
                                         '1)))
                                   (begin
-                                    (let ((_g43148_
+                                    (let ((_g43118_
                                            (let ()
                                              (declare (not safe))
-                                             (if (##values? _g43147_)
-                                                 (##vector-length _g43147_)
+                                             (if (##values? _g43117_)
+                                                 (##vector-length _g43117_)
                                                  1))))
                                       (if (not (let ()
                                                  (declare (not safe))
-                                                 (##fx= _g43148_ 2)))
+                                                 (##fx= _g43118_ 2)))
                                           (error "Context expects 2 values"
-                                                 _g43148_)))
+                                                 _g43118_)))
                                     (let ((_target3323933273_
                                            (let ()
                                              (declare (not safe))
-                                             (##vector-ref _g43147_ 0)))
+                                             (##vector-ref _g43117_ 0)))
                                           (_tl3324133276_
                                            (let ()
                                              (declare (not safe))
-                                             (##vector-ref _g43147_ 1))))
+                                             (##vector-ref _g43117_ 1))))
                                       (if (gx#stx-pair? _tl3324133276_)
                                           (let ((_e3325033279_
                                                  (gx#syntax-e _tl3324133276_)))
@@ -414,43 +432,43 @@
                                        (lambda (_g3333433346_)
                                          (gx#raise-syntax-error
                                           '#f
-                                          '"Bad syntax"
+                                          '"Bad syntax; invalid match target"
                                           _g3333433346_)))
                                       (_g3333233422_
                                        (lambda (_g3333433354_)
                                          (if (gx#stx-pair/null? _g3333433354_)
-                                             (let ((_g43149_
+                                             (let ((_g43119_
                                                     (gx#syntax-split-splice
                                                      _g3333433354_
                                                      '0)))
                                                (begin
-                                                 (let ((_g43150_
+                                                 (let ((_g43120_
                                                         (let ()
                                                           (declare (not safe))
                                                           (if (##values?
-                                                               _g43149_)
+                                                               _g43119_)
                                                               (##vector-length
-                                                               _g43149_)
+                                                               _g43119_)
                                                               1))))
                                                    (if (not (let ()
                                                               (declare
                                                                 (not safe))
-                                                              (##fx= _g43150_
+                                                              (##fx= _g43120_
 ;;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
                              2)))
-               (error "Context expects 2 values" _g43150_)))
+               (error "Context expects 2 values" _g43120_)))
 ;;>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
                                                  (let ((_target3333633357_
                                                         (let ()
                                                           (declare (not safe))
                                                           (##vector-ref
-                                                           _g43149_
+                                                           _g43119_
                                                            0)))
                                                        (_tl3333833360_
                                                         (let ()
                                                           (declare (not safe))
                                                           (##vector-ref
-                                                           _g43149_
+                                                           _g43119_
                                                            1))))
                                                    (if (gx#stx-null?
                                                         _tl3333833360_)
@@ -528,7 +546,10 @@
       (let* ((___stx4248742488_ _stx33440_)
              (_g3344433502_
               (lambda ()
-                (gx#raise-syntax-error '#f '"Bad syntax" ___stx4248742488_))))
+                (gx#raise-syntax-error
+                 '#f
+                 '"Bad syntax; invalid match target"
+                 ___stx4248742488_))))
         (let ((___kont4249042491_
                (lambda (_L33836_)
                  (cons (gx#datum->syntax '#f 'let)
@@ -543,7 +564,7 @@
                          (lambda (_g3364033643_)
                            (gx#raise-syntax-error
                             '#f
-                            '"Bad syntax"
+                            '"Bad syntax; invalid match target"
                             _g3364033643_)))
                         (_g3363833767_
                          (lambda (_g3364033651_)
@@ -553,42 +574,42 @@
                                         (lambda (_g3366733679_)
                                           (gx#raise-syntax-error
                                            '#f
-                                           '"Bad syntax"
+                                           '"Bad syntax; invalid match target"
                                            _g3366733679_)))
                                        (_g3366533747_
                                         (lambda (_g3366733687_)
                                           (if (gx#stx-pair/null? _g3366733687_)
-                                              (let ((_g43151_
+                                              (let ((_g43121_
                                                      (gx#syntax-split-splice
                                                       _g3366733687_
                                                       '0)))
                                                 (begin
-                                                  (let ((_g43152_
+                                                  (let ((_g43122_
                                                          (let ()
                                                            (declare (not safe))
                                                            (if (##values?
-                                                                _g43151_)
+                                                                _g43121_)
                                                                (##vector-length
-                                                                _g43151_)
+                                                                _g43121_)
                                                                1))))
                                                     (if (not (let ()
                                                                (declare
 ;;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
                          (not safe))
-                       (##fx= _g43152_ 2)))
-                (error "Context expects 2 values" _g43152_)))
+                       (##fx= _g43122_ 2)))
+                (error "Context expects 2 values" _g43122_)))
 ;;>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
                                                   (let ((_target3366933690_
                                                          (let ()
                                                            (declare (not safe))
                                                            (##vector-ref
-                                                            _g43151_
+                                                            _g43121_
                                                             0)))
                                                         (_tl3367133693_
                                                          (let ()
                                                            (declare (not safe))
                                                            (##vector-ref
-                                                            _g43151_
+                                                            _g43121_
                                                             1))))
                                                     (if (gx#stx-null?
                                                          _tl3367133693_)
@@ -963,7 +984,10 @@
     (lambda (_$stx33869_)
       (let* ((_g3387333897_
               (lambda (_g3387433893_)
-                (gx#raise-syntax-error '#f '"Bad syntax" _g3387433893_)))
+                (gx#raise-syntax-error
+                 '#f
+                 '"Bad syntax; invalid match target"
+                 _g3387433893_)))
              (_g3387233982_
               (lambda (_g3387433901_)
                 (if (gx#stx-pair? _g3387433901_)
@@ -987,30 +1011,30 @@
                                        (declare (not safe))
                                        (##cdr _e3388233914_))))
                                 (if (gx#stx-pair/null? _tl3388033921_)
-                                    (let ((_g43153_
+                                    (let ((_g43123_
                                            (gx#syntax-split-splice
                                             _tl3388033921_
                                             '0)))
                                       (begin
-                                        (let ((_g43154_
+                                        (let ((_g43124_
                                                (let ()
                                                  (declare (not safe))
-                                                 (if (##values? _g43153_)
-                                                     (##vector-length _g43153_)
+                                                 (if (##values? _g43123_)
+                                                     (##vector-length _g43123_)
                                                      1))))
                                           (if (not (let ()
                                                      (declare (not safe))
-                                                     (##fx= _g43154_ 2)))
+                                                     (##fx= _g43124_ 2)))
                                               (error "Context expects 2 values"
-                                                     _g43154_)))
+                                                     _g43124_)))
                                         (let ((_target3388333924_
                                                (let ()
                                                  (declare (not safe))
-                                                 (##vector-ref _g43153_ 0)))
+                                                 (##vector-ref _g43123_ 0)))
                                               (_tl3388533927_
                                                (let ()
                                                  (declare (not safe))
-                                                 (##vector-ref _g43153_ 1))))
+                                                 (##vector-ref _g43123_ 1))))
                                           (if (gx#stx-null? _tl3388533927_)
                                               (letrec ((_loop3388633930_
                                                         (lambda (_hd3388433934_
@@ -1059,7 +1083,10 @@
     (lambda (_$stx33987_)
       (let* ((_g3399134015_
               (lambda (_g3399234011_)
-                (gx#raise-syntax-error '#f '"Bad syntax" _g3399234011_)))
+                (gx#raise-syntax-error
+                 '#f
+                 '"Bad syntax; invalid match target"
+                 _g3399234011_)))
              (_g3399034100_
               (lambda (_g3399234019_)
                 (if (gx#stx-pair? _g3399234019_)
@@ -1083,30 +1110,30 @@
                                        (declare (not safe))
                                        (##cdr _e3400034032_))))
                                 (if (gx#stx-pair/null? _tl3399834039_)
-                                    (let ((_g43155_
+                                    (let ((_g43125_
                                            (gx#syntax-split-splice
                                             _tl3399834039_
                                             '0)))
                                       (begin
-                                        (let ((_g43156_
+                                        (let ((_g43126_
                                                (let ()
                                                  (declare (not safe))
-                                                 (if (##values? _g43155_)
-                                                     (##vector-length _g43155_)
+                                                 (if (##values? _g43125_)
+                                                     (##vector-length _g43125_)
                                                      1))))
                                           (if (not (let ()
                                                      (declare (not safe))
-                                                     (##fx= _g43156_ 2)))
+                                                     (##fx= _g43126_ 2)))
                                               (error "Context expects 2 values"
-                                                     _g43156_)))
+                                                     _g43126_)))
                                         (let ((_target3400134042_
                                                (let ()
                                                  (declare (not safe))
-                                                 (##vector-ref _g43155_ 0)))
+                                                 (##vector-ref _g43125_ 0)))
                                               (_tl3400334045_
                                                (let ()
                                                  (declare (not safe))
-                                                 (##vector-ref _g43155_ 1))))
+                                                 (##vector-ref _g43125_ 1))))
                                           (if (gx#stx-null? _tl3400334045_)
                                               (letrec ((_loop3400434048_
                                                         (lambda (_hd3400234052_
@@ -1155,7 +1182,10 @@
     (lambda (_$stx34105_)
       (let* ((_g3410934137_
               (lambda (_g3411034133_)
-                (gx#raise-syntax-error '#f '"Bad syntax" _g3411034133_)))
+                (gx#raise-syntax-error
+                 '#f
+                 '"Bad syntax; invalid match target"
+                 _g3411034133_)))
              (_g3410834236_
               (lambda (_g3411034141_)
                 (if (gx#stx-pair? _g3411034141_)
@@ -1190,38 +1220,38 @@
                                                (declare (not safe))
                                                (##cdr _e3412234164_))))
                                         (if (gx#stx-pair/null? _tl3412034171_)
-                                            (let ((_g43157_
+                                            (let ((_g43127_
                                                    (gx#syntax-split-splice
                                                     _tl3412034171_
                                                     '0)))
                                               (begin
-                                                (let ((_g43158_
+                                                (let ((_g43128_
                                                        (let ()
                                                          (declare (not safe))
                                                          (if (##values?
-                                                              _g43157_)
+                                                              _g43127_)
                                                              (##vector-length
-                                                              _g43157_)
+                                                              _g43127_)
                                                              1))))
                                                   (if (not (let ()
                                                              (declare
                                                                (not safe))
-                                                             (##fx= _g43158_
+                                                             (##fx= _g43128_
 ;;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
                             2)))
-              (error "Context expects 2 values" _g43158_)))
+              (error "Context expects 2 values" _g43128_)))
 ;;>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
                                                 (let ((_target3412334174_
                                                        (let ()
                                                          (declare (not safe))
                                                          (##vector-ref
-                                                          _g43157_
+                                                          _g43127_
                                                           0)))
                                                       (_tl3412534177_
                                                        (let ()
                                                          (declare (not safe))
                                                          (##vector-ref
-                                                          _g43157_
+                                                          _g43127_
                                                           1))))
                                                   (if (gx#stx-null?
                                                        _tl3412534177_)
@@ -1284,7 +1314,10 @@
     (lambda (_stx34241_)
       (let* ((_g3424434258_
               (lambda (_g3424534254_)
-                (gx#raise-syntax-error '#f '"Bad syntax" _g3424534254_)))
+                (gx#raise-syntax-error
+                 '#f
+                 '"Bad syntax; invalid match target"
+                 _g3424534254_)))
              (_g3424334330_
               (lambda (_g3424534262_)
                 (if (gx#stx-pair? _g3424534262_)
@@ -1314,7 +1347,7 @@
                                                    (lambda (_g3430034303_)
                                                      (gx#raise-syntax-error
                                                       '#f
-                                                      '"Bad syntax"
+                                                      '"Bad syntax; invalid match target"
                                                       _g3430034303_)))
                                                   (_g3429834326_
                                                    (lambda (_g3430034311_)

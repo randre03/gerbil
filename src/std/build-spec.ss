@@ -79,6 +79,7 @@
     "io/socket/socket"
     "io/socket/api"
     ;; debugging
+    "debug/DBG"
     (gxc: "debug/heap" ,@(include-gambit-sharp))
     "debug/memleak"
     (gxc: "debug/threads" ,@(include-gambit-sharp))
@@ -325,6 +326,7 @@
     "crypto"
     ;; :std/misc
     "misc/atom"
+    "misc/dag"
     "misc/decimal"
     "misc/evector"
     "misc/prime"

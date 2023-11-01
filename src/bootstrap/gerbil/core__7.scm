@@ -1,6 +1,6 @@
 (declare (block) (standard-bindings) (extended-bindings) (inlining-limit 200))
 (begin
-  (define |gerbil/core$<MOP>$<MOP:2>[1]#_g42986_|
+  (define |gerbil/core$<MOP>$<MOP:2>[1]#_g42956_|
     (##structure
      gx#syntax-quote::t
      '@method
@@ -260,27 +260,27 @@
            _stx20855_
            _is?20858_))))
     (define |gerbil/core$<MOP>$<MOP:2>[1]#syntax-local-type-info?|
-      (lambda _g42944_
-        (let ((_g42943_ (let () (declare (not safe)) (##length _g42944_))))
-          (cond ((let () (declare (not safe)) (##fx= _g42943_ 1))
+      (lambda _g42914_
+        (let ((_g42913_ (let () (declare (not safe)) (##length _g42914_))))
+          (cond ((let () (declare (not safe)) (##fx= _g42913_ 1))
                  (apply (lambda (_stx20855_)
                           (let ()
                             (declare (not safe))
                             (|gerbil/core$<MOP>$<MOP:2>[1]#syntax-local-type-info?__0|
                              _stx20855_)))
-                        _g42944_))
-                ((let () (declare (not safe)) (##fx= _g42943_ 2))
+                        _g42914_))
+                ((let () (declare (not safe)) (##fx= _g42913_ 2))
                  (apply (lambda (_stx20861_ _is?20863_)
                           (let ()
                             (declare (not safe))
                             (|gerbil/core$<MOP>$<MOP:2>[1]#syntax-local-type-info?__%|
                              _stx20861_
                              _is?20863_)))
-                        _g42944_))
+                        _g42914_))
                 (else
                  (##raise-wrong-number-of-arguments-exception
                   |gerbil/core$<MOP>$<MOP:2>[1]#syntax-local-type-info?|
-                  _g42944_))))))
+                  _g42914_))))))
     (define |gerbil/core$<MOP>$<MOP:2>[1]#syntax-local-struct-info?|
       (lambda (_stx20835_)
         (let ()
@@ -313,7 +313,10 @@
       (lambda (_self20591_ _stx20593_)
         (let* ((_g2059520615_
                 (lambda (_g2059620611_)
-                  (gx#raise-syntax-error '#f '"Bad syntax" _g2059620611_)))
+                  (gx#raise-syntax-error
+                   '#f
+                   '"Bad syntax; invalid match target"
+                   _g2059620611_)))
                (_g2059420822_
                 (lambda (_g2059620619_)
                   (if (gx#stx-pair? _g2059620619_)
@@ -327,30 +330,30 @@
                                  (declare (not safe))
                                  (##cdr _e2060020622_))))
                           (if (gx#stx-pair/null? _tl2059820629_)
-                              (let ((_g42945_
+                              (let ((_g42915_
                                      (gx#syntax-split-splice
                                       _tl2059820629_
                                       '0)))
                                 (begin
-                                  (let ((_g42946_
+                                  (let ((_g42916_
                                          (let ()
                                            (declare (not safe))
-                                           (if (##values? _g42945_)
-                                               (##vector-length _g42945_)
+                                           (if (##values? _g42915_)
+                                               (##vector-length _g42915_)
                                                1))))
                                     (if (not (let ()
                                                (declare (not safe))
-                                               (##fx= _g42946_ 2)))
+                                               (##fx= _g42916_ 2)))
                                         (error "Context expects 2 values"
-                                               _g42946_)))
+                                               _g42916_)))
                                   (let ((_target2060120632_
                                          (let ()
                                            (declare (not safe))
-                                           (##vector-ref _g42945_ 0)))
+                                           (##vector-ref _g42915_ 0)))
                                         (_tl2060320635_
                                          (let ()
                                            (declare (not safe))
-                                           (##vector-ref _g42945_ 1))))
+                                           (##vector-ref _g42915_ 1))))
                                     (if (gx#stx-null? _tl2060320635_)
                                         (letrec ((_loop2060420638_
                                                   (lambda (_hd2060220642_
@@ -365,17 +368,17 @@
                          (let () (declare (not safe)) (##car _e2060520648_)))
                         (_lp-tl2060720655_
                          (let () (declare (not safe)) (##cdr _e2060520648_))))
-                    (let ((__tmp42948
+                    (let ((__tmp42918
                            (cons _lp-hd2060620652_ _arg2060820645_)))
                       (declare (not safe))
-                      (_loop2060420638_ _lp-tl2060720655_ __tmp42948))))
+                      (_loop2060420638_ _lp-tl2060720655_ __tmp42918))))
                 (let ((_arg2060920658_ (reverse _arg2060820645_)))
                   ((lambda (_L20662_)
                      (let* ((_g2067820709_
                              (lambda (_g2067920705_)
                                (gx#raise-syntax-error
                                 '#f
-                                '"Bad syntax"
+                                '"Bad syntax; invalid match target"
                                 _g2067920705_)))
                             (_g2067720818_
                              (lambda (_g2067920713_)
@@ -496,14 +499,14 @@
                                    (let ()
                                      (declare (not safe))
                                      (_g2067820709_ _g2067920713_)))))
-                            (__tmp42947
+                            (__tmp42917
                              (let ()
                                (declare (not safe))
                                (unchecked-slot-ref
                                 _self20591_
                                 'expander-identifiers))))
                        (declare (not safe))
-                       (_g2067720818_ __tmp42947)))
+                       (_g2067720818_ __tmp42917)))
                    _arg2060920658_))))))
 ;;>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
                                           (let ()
@@ -555,7 +558,7 @@
                       (gx#stx-source _stx19410_))))
                   (_make-id19420_
                    (if (uninterned-symbol? (gx#stx-e _id19412_))
-                       (lambda _g42949_ (gx#genident _id19412_))
+                       (lambda _g42919_ (gx#genident _id19412_))
                        (lambda _args20576_
                          (apply gx#stx-identifier _id19412_ _args20576_)))))
           (gx#check-duplicate-identifiers _els19414_ _stx19410_)
@@ -568,7 +571,10 @@
                       (map gx#syntax-local-value _super-ref19413_)))
                  (_g1942819436_
                   (lambda (_g1942919432_)
-                    (gx#raise-syntax-error '#f '"Bad syntax" _g1942919432_)))
+                    (gx#raise-syntax-error
+                     '#f
+                     '"Bad syntax; invalid match target"
+                     _g1942919432_)))
                  (_g1942720570_
                   (lambda (_g1942919440_)
                     ((lambda (_L19443_)
@@ -577,7 +583,7 @@
                                  (lambda (_g1946019463_)
                                    (gx#raise-syntax-error
                                     '#f
-                                    '"Bad syntax"
+                                    '"Bad syntax; invalid match target"
                                     _g1946019463_)))
                                 (_g1945820566_
                                  (lambda (_g1946019471_)
@@ -587,7 +593,7 @@
                                                 (lambda (_g1948819491_)
                                                   (gx#raise-syntax-error
                                                    '#f
-                                                   '"Bad syntax"
+                                                   '"Bad syntax; invalid match target"
                                                    _g1948819491_)))
                                                (_g1948620562_
                                                 (lambda (_g1948819499_)
@@ -598,7 +604,7 @@
 ;;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
                          (gx#raise-syntax-error
                           '#f
-                          '"Bad syntax"
+                          '"Bad syntax; invalid match target"
                           _g1951619519_)))
                       (_g1951420558_
                        (lambda (_g1951619527_)
@@ -608,7 +614,7 @@
                                       (lambda (_g1954419547_)
                                         (gx#raise-syntax-error
                                          '#f
-                                         '"Bad syntax"
+                                         '"Bad syntax; invalid match target"
                                          _g1954419547_)))
                                      (_g1954220554_
                                       (lambda (_g1954419555_)
@@ -618,7 +624,7 @@
                                                      (lambda (_g1957219575_)
                                                        (gx#raise-syntax-error
                                                         '#f
-                                                        '"Bad syntax"
+                                                        '"Bad syntax; invalid match target"
                                                         _g1957219575_)))
                                                     (_g1957020550_
                                                      (lambda (_g1957219583_)
@@ -629,35 +635,35 @@
                             (lambda (_g1960019612_)
                               (gx#raise-syntax-error
                                '#f
-                               '"Bad syntax"
+                               '"Bad syntax; invalid match target"
                                _g1960019612_)))
                            (_g1959820546_
                             (lambda (_g1960019620_)
                               (if (gx#stx-pair/null? _g1960019620_)
-                                  (let ((_g42950_
+                                  (let ((_g42920_
                                          (gx#syntax-split-splice
                                           _g1960019620_
                                           '0)))
                                     (begin
-                                      (let ((_g42951_
+                                      (let ((_g42921_
                                              (let ()
                                                (declare (not safe))
-                                               (if (##values? _g42950_)
-                                                   (##vector-length _g42950_)
+                                               (if (##values? _g42920_)
+                                                   (##vector-length _g42920_)
                                                    1))))
                                         (if (not (let ()
                                                    (declare (not safe))
-                                                   (##fx= _g42951_ 2)))
+                                                   (##fx= _g42921_ 2)))
                                             (error "Context expects 2 values"
-                                                   _g42951_)))
+                                                   _g42921_)))
                                       (let ((_target1960219623_
                                              (let ()
                                                (declare (not safe))
-                                               (##vector-ref _g42950_ 0)))
+                                               (##vector-ref _g42920_ 0)))
                                             (_tl1960419626_
                                              (let ()
                                                (declare (not safe))
-                                               (##vector-ref _g42950_ 1))))
+                                               (##vector-ref _g42920_ 1))))
                                         (if (gx#stx-null? _tl1960419626_)
                                             (letrec ((_loop1960519629_
                                                       (lambda (_hd1960319633_
@@ -675,10 +681,10 @@
                              (let ()
                                (declare (not safe))
                                (##cdr _e1960619639_))))
-                        (let ((__tmp42979
+                        (let ((__tmp42949
                                (cons _lp-hd1960719643_ _attr1960919636_)))
                           (declare (not safe))
-                          (_loop1960519629_ _lp-tl1960819646_ __tmp42979))))
+                          (_loop1960519629_ _lp-tl1960819646_ __tmp42949))))
                     (let ((_attr1961019649_ (reverse _attr1960919636_)))
                       ((lambda (_L19653_)
                          (let ()
@@ -686,39 +692,39 @@
                                    (lambda (_g1967119683_)
                                      (gx#raise-syntax-error
                                       '#f
-                                      '"Bad syntax"
+                                      '"Bad syntax; invalid match target"
                                       _g1967119683_)))
                                   (_g1966920537_
                                    (lambda (_g1967119691_)
                                      (if (gx#stx-pair/null? _g1967119691_)
-                                         (let ((_g42952_
+                                         (let ((_g42922_
                                                 (gx#syntax-split-splice
                                                  _g1967119691_
                                                  '0)))
                                            (begin
-                                             (let ((_g42953_
+                                             (let ((_g42923_
                                                     (let ()
                                                       (declare (not safe))
-                                                      (if (##values? _g42952_)
+                                                      (if (##values? _g42922_)
                                                           (##vector-length
-                                                           _g42952_)
+                                                           _g42922_)
                                                           1))))
                                                (if (not (let ()
                                                           (declare (not safe))
-                                                          (##fx= _g42953_ 2)))
+                                                          (##fx= _g42923_ 2)))
                                                    (error "Context expects 2 values"
-                                                          _g42953_)))
+                                                          _g42923_)))
                                              (let ((_target1967319694_
                                                     (let ()
                                                       (declare (not safe))
                                                       (##vector-ref
-                                                       _g42952_
+                                                       _g42922_
                                                        0)))
                                                    (_tl1967519697_
                                                     (let ()
                                                       (declare (not safe))
                                                       (##vector-ref
-                                                       _g42952_
+                                                       _g42922_
                                                        1))))
                                                (if (gx#stx-null?
                                                     _tl1967519697_)
@@ -736,13 +742,13 @@
                                     (let ()
                                       (declare (not safe))
                                       (##cdr _e1967719710_))))
-                               (let ((__tmp42977
+                               (let ((__tmp42947
                                       (cons _lp-hd1967819714_
                                             _getf1968019707_)))
                                  (declare (not safe))
                                  (_loop1967619700_
                                   _lp-tl1967919717_
-                                  __tmp42977))))
+                                  __tmp42947))))
                            (let ((_getf1968119720_ (reverse _getf1968019707_)))
                              ((lambda (_L19724_)
                                 (let ()
@@ -750,42 +756,42 @@
                                           (lambda (_g1974219754_)
                                             (gx#raise-syntax-error
                                              '#f
-                                             '"Bad syntax"
+                                             '"Bad syntax; invalid match target"
                                              _g1974219754_)))
                                          (_g1974020528_
                                           (lambda (_g1974219762_)
                                             (if (gx#stx-pair/null?
                                                  _g1974219762_)
-                                                (let ((_g42954_
+                                                (let ((_g42924_
                                                        (gx#syntax-split-splice
                                                         _g1974219762_
                                                         '0)))
                                                   (begin
-                                                    (let ((_g42955_
+                                                    (let ((_g42925_
                                                            (let ()
                                                              (declare
                                                                (not safe))
                                                              (if (##values?
 ;;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-                          _g42954_)
-                         (##vector-length _g42954_)
+                          _g42924_)
+                         (##vector-length _g42924_)
                          1))))
-              (if (not (let () (declare (not safe)) (##fx= _g42955_ 2)))
-                  (error "Context expects 2 values" _g42955_)))
+              (if (not (let () (declare (not safe)) (##fx= _g42925_ 2)))
+                  (error "Context expects 2 values" _g42925_)))
 ;;>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
                                                     (let ((_target1974419765_
                                                            (let ()
                                                              (declare
                                                                (not safe))
                                                              (##vector-ref
-                                                              _g42954_
+                                                              _g42924_
                                                               0)))
                                                           (_tl1974619768_
                                                            (let ()
                                                              (declare
                                                                (not safe))
                                                              (##vector-ref
-                                                              _g42954_
+                                                              _g42924_
                                                               1))))
                                                       (if (gx#stx-null?
                                                            _tl1974619768_)
@@ -803,13 +809,13 @@
                                            (let ()
                                              (declare (not safe))
                                              (##cdr _e1974819781_))))
-                                      (let ((__tmp42975
+                                      (let ((__tmp42945
                                              (cons _lp-hd1974919785_
                                                    _setf1975119778_)))
                                         (declare (not safe))
                                         (_loop1974719771_
                                          _lp-tl1975019788_
-                                         __tmp42975))))
+                                         __tmp42945))))
                                   (let ((_setf1975219791_
                                          (reverse _setf1975119778_)))
                                     ((lambda (_L19795_)
@@ -949,7 +955,7 @@
                                                              (lambda (_g1992519928_)
                                                                (gx#raise-syntax-error
                                                                 '#f
-                                                                '"Bad syntax"
+                                                                '"Bad syntax; invalid match target"
                                                                 _g1992519928_)))
                                                             (_g1992319957_
                                                              (lambda (_g1992519936_)
@@ -985,34 +991,34 @@
                                                  (lambda (_g1998019992_)
                                                    (gx#raise-syntax-error
                                                     '#f
-                                                    '"Bad syntax"
+                                                    '"Bad syntax; invalid match target"
                                                     _g1998019992_)))
                                                 (_g1997820524_
                                                  (lambda (_g1998020000_)
                                                    (if (gx#stx-pair/null?
                                                         _g1998020000_)
-                                                       (let ((_g42956_
+                                                       (let ((_g42926_
                                                               (gx#syntax-split-splice
                                                                _g1998020000_
                                                                '0)))
                                                          (begin
-                                                           (let ((_g42957_
+                                                           (let ((_g42927_
 ;;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
                           (let ()
                             (declare (not safe))
-                            (if (##values? _g42956_)
-                                (##vector-length _g42956_)
+                            (if (##values? _g42926_)
+                                (##vector-length _g42926_)
                                 1))))
-                     (if (not (let () (declare (not safe)) (##fx= _g42957_ 2)))
-                         (error "Context expects 2 values" _g42957_)))
+                     (if (not (let () (declare (not safe)) (##fx= _g42927_ 2)))
+                         (error "Context expects 2 values" _g42927_)))
                    (let ((_target1998220003_
                           (let ()
                             (declare (not safe))
-                            (##vector-ref _g42956_ 0)))
+                            (##vector-ref _g42926_ 0)))
                          (_tl1998420006_
                           (let ()
                             (declare (not safe))
-                            (##vector-ref _g42956_ 1))))
+                            (##vector-ref _g42926_ 1))))
                      (if (gx#stx-null? _tl1998420006_)
                          (letrec ((_loop1998520009_
                                    (lambda (_hd1998320013_
@@ -1028,13 +1034,13 @@
                                                   (let ()
                                                     (declare (not safe))
                                                     (##cdr _e1998620019_))))
-                                             (let ((__tmp42973
+                                             (let ((__tmp42943
                                                     (cons _lp-hd1998720023_
                                                           _type-body1998920016_)))
                                                (declare (not safe))
                                                (_loop1998520009_
                                                 _lp-tl1998820026_
-                                                __tmp42973))))
+                                                __tmp42943))))
                                          (let ((_type-body1999020029_
                                                 (reverse _type-body1998920016_)))
                                            ((lambda (_L20033_)
@@ -1043,7 +1049,7 @@
                                                         (lambda (_g2005120054_)
                                                           (gx#raise-syntax-error
                                                            '#f
-                                                           '"Bad syntax"
+                                                           '"Bad syntax; invalid match target"
                                                            _g2005120054_)))
                                                        (_g2004920512_
                                                         (lambda (_g2005120062_)
@@ -1054,7 +1060,7 @@
                                (lambda (_g2007920082_)
                                  (gx#raise-syntax-error
                                   '#f
-                                  '"Bad syntax"
+                                  '"Bad syntax; invalid match target"
                                   _g2007920082_)))
                               (_g2007720508_
                                (lambda (_g2007920090_)
@@ -1064,7 +1070,7 @@
                                               (lambda (_g2010720110_)
                                                 (gx#raise-syntax-error
                                                  '#f
-                                                 '"Bad syntax"
+                                                 '"Bad syntax; invalid match target"
                                                  _g2010720110_)))
                                              (_g2010520422_
                                               (lambda (_g2010720118_)
@@ -1074,7 +1080,7 @@
                                                              (lambda (_g2013520138_)
                                                                (gx#raise-syntax-error
                                                                 '#f
-                                                                '"Bad syntax"
+                                                                '"Bad syntax; invalid match target"
                                                                 _g2013520138_)))
                                                             (_g2013320418_
                                                              (lambda (_g2013520146_)
@@ -1085,7 +1091,7 @@
                                     (lambda (_g2016320166_)
                                       (gx#raise-syntax-error
                                        '#f
-                                       '"Bad syntax"
+                                       '"Bad syntax; invalid match target"
                                        _g2016320166_)))
                                    (_g2016120414_
                                     (lambda (_g2016320174_)
@@ -1095,7 +1101,7 @@
                                                    (lambda (_g2019120194_)
                                                      (gx#raise-syntax-error
                                                       '#f
-                                                      '"Bad syntax"
+                                                      '"Bad syntax; invalid match target"
                                                       _g2019120194_)))
                                                   (_g2018920372_
                                                    (lambda (_g2019120202_)
@@ -1106,7 +1112,7 @@
                           (lambda (_g2021920222_)
                             (gx#raise-syntax-error
                              '#f
-                             '"Bad syntax"
+                             '"Bad syntax; invalid match target"
                              _g2021920222_)))
                          (_g2021720368_
                           (lambda (_g2021920230_)
@@ -1116,7 +1122,7 @@
                                          (lambda (_g2024720250_)
                                            (gx#raise-syntax-error
                                             '#f
-                                            '"Bad syntax"
+                                            '"Bad syntax; invalid match target"
                                             _g2024720250_)))
                                         (_g2024520364_
                                          (lambda (_g2024720258_)
@@ -1126,7 +1132,7 @@
                                                         (lambda (_g2027520278_)
                                                           (gx#raise-syntax-error
                                                            '#f
-                                                           '"Bad syntax"
+                                                           '"Bad syntax; invalid match target"
                                                            _g2027520278_)))
                                                        (_g2027320360_
                                                         (lambda (_g2027520286_)
@@ -1137,14 +1143,14 @@
                                (lambda (_g2030320306_)
                                  (gx#raise-syntax-error
                                   '#f
-                                  '"Bad syntax"
+                                  '"Bad syntax; invalid match target"
                                   _g2030320306_)))
                               (_g2030120332_
                                (lambda (_g2030320314_)
                                  ((lambda (_L20317_)
                                     (let ()
                                       (let ()
-                                        (let ((__tmp42958
+                                        (let ((__tmp42928
                                                (cons (gx#datum->syntax
                                                       '#f
                                                       'begin)
@@ -1154,10 +1160,10 @@
                          '())))))
 ;;>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
                                           (declare (not safe))
-                                          (_wrap19418_ __tmp42958)))))
+                                          (_wrap19418_ __tmp42928)))))
                                   _g2030320314_)))
-                              (__tmp42959
-                               (let ((__tmp42960
+                              (__tmp42929
+                               (let ((__tmp42930
                                       (cons (gx#datum->syntax '#f 'defsyntax)
                                             (cons _L19474_
                                                   (cons (cons _L20093_
@@ -1238,28 +1244,28 @@
                 '())))))
 ;;>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
                                  (declare (not safe))
-                                 (_wrap19418_ __tmp42960))))
+                                 (_wrap19418_ __tmp42930))))
                          (declare (not safe))
-                         (_g2030120332_ __tmp42959))))
+                         (_g2030120332_ __tmp42929))))
                    _g2027520286_))))
 ;;>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
                                                   (declare (not safe))
                                                   (_g2027320360_
                                                    _plist19921_))))
                                             _g2024720258_)))
-                                        (__tmp42961
+                                        (__tmp42931
                                          (if (not (null? _type-ctor19877_))
                                              (cadr _type-ctor19877_)
                                              '#f)))
                                    (declare (not safe))
-                                   (_g2024520364_ __tmp42961))))
+                                   (_g2024520364_ __tmp42931))))
                              _g2021920230_)))
-                         (__tmp42962 (cadr _type-name19847_)))
+                         (__tmp42932 (cadr _type-name19847_)))
                     (declare (not safe))
-                    (_g2021720368_ __tmp42962))))
+                    (_g2021720368_ __tmp42932))))
               _g2019120202_)))
 ;;>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-                                                  (__tmp42963
+                                                  (__tmp42933
                                                    (let ((_quote-e20411_
                                                           (lambda (_x-ref20376_)
                                                             (if _x-ref20376_
@@ -1268,7 +1274,7 @@
                                 (lambda (_g2038020383_)
                                   (gx#raise-syntax-error
                                    '#f
-                                   '"Bad syntax"
+                                   '"Bad syntax; invalid match target"
                                    _g2038020383_)))
                                (_g2037820407_
                                 (lambda (_g2038020391_)
@@ -1294,26 +1300,26 @@
                             _super-ref19413_))))))
 ;;>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
                                              (declare (not safe))
-                                             (_g2018920372_ __tmp42963))))
+                                             (_g2018920372_ __tmp42933))))
                                        _g2016320174_)))
-                                   (__tmp42964
+                                   (__tmp42934
                                     (if (not (null? _type-id19862_))
                                         (cadr _type-id19862_)
                                         '#f)))
                               (declare (not safe))
-                              (_g2016120414_ __tmp42964))))
+                              (_g2016120414_ __tmp42934))))
                         _g2013520146_)))
-                    (__tmp42965
+                    (__tmp42935
                      (if _struct?19416_
                          (gx#datum->syntax '#f 'make-runtime-struct-exhibitor)
                          (gx#datum->syntax
                           '#f
                           'make-runtime-class-exhibitor))))
                (declare (not safe))
-               (_g2013320418_ __tmp42965))))
+               (_g2013320418_ __tmp42935))))
 ;;>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
                                                  _g2010720118_)))
-                                             (__tmp42966
+                                             (__tmp42936
                                               (if _struct?19416_
                                                   (if _super19425_
                                                       (cons (gx#datum->syntax
@@ -1328,34 +1334,34 @@
                                                           (lambda (_g2042720439_)
                                                             (gx#raise-syntax-error
                                                              '#f
-                                                             '"Bad syntax"
+                                                             '"Bad syntax; invalid match target"
                                                              _g2042720439_)))
                                                          (_g2042520504_
                                                           (lambda (_g2042720447_)
                                                             (if (gx#stx-pair/null?
 ;;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
                          _g2042720447_)
-                        (let ((_g42967_
+                        (let ((_g42937_
                                (gx#syntax-split-splice _g2042720447_ '0)))
                           (begin
-                            (let ((_g42968_
+                            (let ((_g42938_
                                    (let ()
                                      (declare (not safe))
-                                     (if (##values? _g42967_)
-                                         (##vector-length _g42967_)
+                                     (if (##values? _g42937_)
+                                         (##vector-length _g42937_)
                                          1))))
                               (if (not (let ()
                                          (declare (not safe))
-                                         (##fx= _g42968_ 2)))
-                                  (error "Context expects 2 values" _g42968_)))
+                                         (##fx= _g42938_ 2)))
+                                  (error "Context expects 2 values" _g42938_)))
                             (let ((_target2042920450_
                                    (let ()
                                      (declare (not safe))
-                                     (##vector-ref _g42967_ 0)))
+                                     (##vector-ref _g42937_ 0)))
                                   (_tl2043120453_
                                    (let ()
                                      (declare (not safe))
-                                     (##vector-ref _g42967_ 1))))
+                                     (##vector-ref _g42937_ 1))))
                               (if (gx#stx-null? _tl2043120453_)
                                   (letrec ((_loop2043220456_
                                             (lambda (_hd2043020460_
@@ -1374,12 +1380,12 @@
                                                              (declare
                                                                (not safe))
                                                              (##cdr _e2043320466_))))
-                                                      (let ((__tmp42969
+                                                      (let ((__tmp42939
                                                              (cons _lp-hd2043420470_
 ;;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
                            _super-id2043620463_)))
                 (declare (not safe))
-                (_loop2043220456_ _lp-tl2043520473_ __tmp42969))))
+                (_loop2043220456_ _lp-tl2043520473_ __tmp42939))))
 ;;>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
                                                   (let ((_super-id2043720476_
                                                          (reverse _super-id2043620463_)))
@@ -1416,9 +1422,9 @@
                                                     (_g2042520504_
                                                      _L19586_)))))
                                         (declare (not safe))
-                                        (_g2010520422_ __tmp42966))))
+                                        (_g2010520422_ __tmp42936))))
                                   _g2007920090_)))
-                              (__tmp42970
+                              (__tmp42940
                                (if _struct?19416_
                                    (gx#datum->syntax
                                     '#f
@@ -1427,10 +1433,10 @@
                                     '#f
                                     'make-extended-class-info))))
                          (declare (not safe))
-                         (_g2007720508_ __tmp42970))))
+                         (_g2007720508_ __tmp42940))))
                    _g2005120062_)))
-               (__tmp42971
-                (let ((__tmp42972
+               (__tmp42941
+                (let ((__tmp42942
                        (cons _L19443_
                              (cons _L19502_
                                    (cons _L19586_
@@ -1444,10 +1450,10 @@
                     _L20033_))))))))
 ;;>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
                   (declare (not safe))
-                  (_wrap19418_ __tmp42972))))
+                  (_wrap19418_ __tmp42942))))
 ;;>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
                                                   (declare (not safe))
-                                                  (_g2004920512_ __tmp42971))))
+                                                  (_g2004920512_ __tmp42941))))
                                             _type-body1999020029_))))))
                            (let ()
                              (declare (not safe))
@@ -1457,7 +1463,7 @@
                            (_g1997919996_ _g1998020000_))))))
                (let () (declare (not safe)) (_g1997919996_ _g1998020000_)))))
 ;;>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-                                                (__tmp42974
+                                                (__tmp42944
                                                  (foldr cons
                                                         (foldr cons
                                                                (foldr cons
@@ -1472,7 +1478,7 @@
                 _type-attr19840_)))
 ;;>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
                                            (declare (not safe))
-                                           (_g1997820524_ __tmp42974))))
+                                           (_g1997820524_ __tmp42944))))
                                      _setf1975219791_))))))
                     (let ()
                       (declare (not safe))
@@ -1485,7 +1491,7 @@
                                                   (declare (not safe))
                                                   (_g1974119758_
                                                    _g1974219762_)))))
-                                         (__tmp42976
+                                         (__tmp42946
                                           (gx#stx-map
                                            (lambda (_g2053120533_)
                                              (_make-id19420_
@@ -1495,7 +1501,7 @@
                                               '"-set!"))
                                            _els19414_)))
                                     (declare (not safe))
-                                    (_g1974020528_ __tmp42976))))
+                                    (_g1974020528_ __tmp42946))))
                               _getf1968119720_))))))
 ;;>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
                                                      (let ()
@@ -1510,7 +1516,7 @@
                                          (let ()
                                            (declare (not safe))
                                            (_g1967019687_ _g1967119691_)))))
-                                  (__tmp42978
+                                  (__tmp42948
                                    (gx#stx-map
                                     (lambda (_g2054020542_)
                                       (_make-id19420_
@@ -1519,7 +1525,7 @@
                                        _g2054020542_))
                                     _els19414_)))
                              (declare (not safe))
-                             (_g1966920537_ __tmp42978))))
+                             (_g1966920537_ __tmp42948))))
                        _attr1961019649_))))))
 ;;>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
                                               (let ()
@@ -1538,7 +1544,7 @@
                       (_g1959820546_ _els19414_))))
                 _g1957219583_)))
 ;;>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-                                                    (__tmp42980
+                                                    (__tmp42950
                                                      (if _struct?19416_
                                                          (if _super19425_
                                                              (let ()
@@ -1551,34 +1557,34 @@
                       _super19425_))))
 ;;>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
                                                (declare (not safe))
-                                               (_g1957020550_ __tmp42980))))
+                                               (_g1957020550_ __tmp42950))))
                                          _g1954419555_)))
-                                     (__tmp42981
+                                     (__tmp42951
                                       (_make-id19420_ _name19422_ '"?")))
                                 (declare (not safe))
-                                (_g1954220554_ __tmp42981))))
+                                (_g1954220554_ __tmp42951))))
                           _g1951619527_)))
-                      (__tmp42982 (_make-id19420_ '"make-" _name19422_)))
+                      (__tmp42952 (_make-id19420_ '"make-" _name19422_)))
                  (declare (not safe))
-                 (_g1951420558_ __tmp42982))))
+                 (_g1951420558_ __tmp42952))))
 ;;>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
                                                    _g1948819499_)))
-                                               (__tmp42983
+                                               (__tmp42953
                                                 (_make-id19420_
                                                  _name19422_
                                                  '"::t")))
                                           (declare (not safe))
-                                          (_g1948620562_ __tmp42983))))
+                                          (_g1948620562_ __tmp42953))))
                                     _g1946019471_))))
                            (declare (not safe))
                            (_g1945820566_ _id19412_))))
                      _g1942919440_)))
-                 (__tmp42984
+                 (__tmp42954
                   (if _struct?19416_
                       (gx#datum->syntax '#f 'defstruct-type)
                       (gx#datum->syntax '#f 'defclass-type))))
             (declare (not safe))
-            (_g1942720570_ __tmp42984)))))
+            (_g1942720570_ __tmp42954)))))
     (define |gerbil/core$<MOP>$<MOP:2>[:0:]#defstruct|
       (lambda (_stx20898_)
         (letrec ((_generate20901_
@@ -1588,7 +1594,7 @@
                             (lambda ()
                               (gx#raise-syntax-error
                                '#f
-                               '"Bad syntax"
+                               '"Bad syntax; invalid match target"
                                ___stx3979139792_))))
                       (let ((___kont3979439795_
                              (lambda (_L21044_ _L21046_)
@@ -1615,7 +1621,7 @@
                                       '#t))
                                    (gx#raise-syntax-error
                                     '#f
-                                    '"Bad syntax"
+                                    '"Bad syntax; struct name not an identifier"
                                     _stx20898_
                                     _hd20985_)))))
                         (let ((___match3981239813_
@@ -1669,7 +1675,10 @@
                               (___kont3979639797_))))))))
           (let* ((_g2090420923_
                   (lambda (_g2090520919_)
-                    (gx#raise-syntax-error '#f '"Bad syntax" _g2090520919_)))
+                    (gx#raise-syntax-error
+                     '#f
+                     '"Bad syntax; invalid match target"
+                     _g2090520919_)))
                  (_g2090320981_
                   (lambda (_g2090520927_)
                     (if (gx#stx-pair? _g2090520927_)
@@ -1735,16 +1744,16 @@
                             (lambda ()
                               (gx#raise-syntax-error
                                '#f
-                               '"Bad syntax"
+                               '"Bad syntax; invalid match target"
                                ___stx3981539816_))))
                       (let ((___kont3981839819_
                              (lambda (_L21198_ _L21200_)
-                               (let ((__tmp42985 (gx#syntax->list _L21198_)))
+                               (let ((__tmp42955 (gx#syntax->list _L21198_)))
                                  (declare (not safe))
                                  (|gerbil/core$<MOP>$<MOP:2>[1]#generate-typedef|
                                   _stx21065_
                                   _L21200_
-                                  __tmp42985
+                                  __tmp42955
                                   _slots21154_
                                   _body21155_
                                   '#f))))
@@ -1762,7 +1771,7 @@
                                       '#f))
                                    (gx#raise-syntax-error
                                     '#f
-                                    '"Bad syntax"
+                                    '"Bad syntax; class name should be an identifier"
                                     _stx21065_
                                     _hd21152_)))))
                         (let ((___match3982839829_
@@ -1795,7 +1804,10 @@
                               (___kont3982039821_))))))))
           (let* ((_g2107121090_
                   (lambda (_g2107221086_)
-                    (gx#raise-syntax-error '#f '"Bad syntax" _g2107221086_)))
+                    (gx#raise-syntax-error
+                     '#f
+                     '"Bad syntax; invalid match target"
+                     _g2107221086_)))
                  (_g2107021148_
                   (lambda (_g2107221094_)
                     (if (gx#stx-pair? _g2107221094_)
@@ -1863,7 +1875,10 @@
                   (lambda (_x21554_) (memq (gx#stx-e _x21554_) '(rebind:)))))
           (let* ((_g2122421253_
                   (lambda (_g2122521249_)
-                    (gx#raise-syntax-error '#f '"Bad syntax" _g2122521249_)))
+                    (gx#raise-syntax-error
+                     '#f
+                     '"Bad syntax; invalid match target"
+                     _g2122521249_)))
                  (_g2122321550_
                   (lambda (_g2122521257_)
                     (if (gx#stx-pair? _g2122521257_)
@@ -1900,7 +1915,7 @@
                                                    (##cdr _e2123821280_))))
                                             (if (gx#identifier? _hd2123721284_)
                                                 (if (gx#free-identifier=?
-                                                     |gerbil/core$<MOP>$<MOP:2>[1]#_g42986_|
+                                                     |gerbil/core$<MOP>$<MOP:2>[1]#_g42956_|
                                                      _hd2123721284_)
                                                     (if (gx#stx-pair?
                                                          _tl2123621287_)
@@ -1960,7 +1975,7 @@
                                                        (lambda (_g2135621359_)
                                                          (gx#raise-syntax-error
                                                           '#f
-                                                          '"Bad syntax"
+                                                          '"Bad syntax; invalid match target"
                                                           _g2135621359_)))
                                                       (_g2135421546_
                                                        (lambda (_g2135621367_)
@@ -1971,7 +1986,7 @@
                               (lambda (_g2138521388_)
                                 (gx#raise-syntax-error
                                  '#f
-                                 '"Bad syntax"
+                                 '"Bad syntax; invalid match target"
                                  _g2138521388_)))
                              (_g2138321542_
                               (lambda (_g2138521396_)
@@ -1981,7 +1996,7 @@
                                              (lambda (_g2141321416_)
                                                (gx#raise-syntax-error
                                                 '#f
-                                                '"Bad syntax"
+                                                '"Bad syntax; invalid match target"
                                                 _g2141321416_)))
                                             (_g2141121538_
                                              (lambda (_g2141321424_)
@@ -1991,7 +2006,7 @@
                                                             (lambda (_g2144121444_)
                                                               (gx#raise-syntax-error
                                                                '#f
-                                                               '"Bad syntax"
+                                                               '"Bad syntax; invalid match target"
                                                                _g2144121444_)))
                                                            (_g2143921534_
                                                             (lambda (_g2144121452_)
@@ -2002,7 +2017,7 @@
                                    (lambda (_g2146921472_)
                                      (gx#raise-syntax-error
                                       '#f
-                                      '"Bad syntax"
+                                      '"Bad syntax; invalid match target"
                                       _g2146921472_)))
                                   (_g2146721530_
                                    (lambda (_g2146921480_)
@@ -2012,7 +2027,7 @@
                                                   (lambda (_g2149721500_)
                                                     (gx#raise-syntax-error
                                                      '#f
-                                                     '"Bad syntax"
+                                                     '"Bad syntax; invalid match target"
                                                      _g2149721500_)))
                                                  (_g2149521526_
                                                   (lambda (_g2149721508_)
@@ -2170,7 +2185,7 @@
                   (lambda ()
                     (gx#raise-syntax-error
                      '#f
-                     '"Bad syntax"
+                     '"Bad syntax; invalid match target"
                      ___stx3983139832_))))
             (let ((___kont3983439835_
                    (lambda (_L22078_ _L22080_ _L22081_)
@@ -2178,7 +2193,7 @@
                              (lambda (_g2211022120_)
                                (gx#raise-syntax-error
                                 '#f
-                                '"Bad syntax"
+                                '"Bad syntax; invalid match target"
                                 _g2211022120_)))
                             (_g2210822177_
                              (lambda (_g2211022128_)
@@ -2244,7 +2259,7 @@
                              (lambda (_g2194021950_)
                                (gx#raise-syntax-error
                                 '#f
-                                '"Bad syntax"
+                                '"Bad syntax; invalid match target"
                                 _g2194021950_)))
                             (_g2193822007_
                              (lambda (_g2194021958_)
@@ -3029,7 +3044,7 @@
                 (lambda ()
                   (gx#raise-syntax-error
                    '#f
-                   '"Bad syntax"
+                   '"Bad syntax; invalid match target"
                    ___stx3995339954_))))
           (let ((___kont3995639957_
                  (lambda (_L22392_ _L22394_)
@@ -3227,7 +3242,7 @@
                 (lambda ()
                   (gx#raise-syntax-error
                    '#f
-                   '"Bad syntax"
+                   '"Bad syntax; invalid match target"
                    ___stx4001140012_))))
           (let ((___kont4001440015_
                  (lambda (_L22647_ _L22649_ _L22650_)

@@ -159,6 +159,8 @@ package: gerbil
     string-split string-join string-empty? string-prefix?
     string->keyword keyword->string make-uninterned-keyword
     symbol->keyword keyword->symbol
+    ;; c3 linearization
+    c3-linearize not-null? remove-nulls append-reverse
     ;; MOP
     type-descriptor?
     struct-type?
@@ -270,9 +272,9 @@ package: gerbil
     ;; keyword argument dispatch
     keyword-dispatch keyword-rest
     ;; gerbil specifics
-    gerbil-version-string gerbil-system-version-string system-version
+    gerbil-version-string gerbil-system-version-string system-version gerbil-system-manifest
     ;; build manifest
-    build-manifest filter-build-manifest display-build-manifest build-manifest-string
+    build-manifest build-manifest/layer build-manifest/head display-build-manifest build-manifest-string
     ;; system type information
     gerbil-system system-type
     ;; voodoo doll
@@ -1572,7 +1574,7 @@ package: gerbil
                     (values (foldl cons tail hd)
                             (foldl cons (list tail) body)
                             #t))
-                  (raise-syntax-error #f "Bad syntax" stx #'e)))
+                  (raise-syntax-error #f "Bad syntax; cut ellipsis <...> not in tail position" stx #'e)))
                (_ (lp #'rest hd (cons #'e body)))))
             (_ (values (reverse hd) (reverse body) #f)))))
 
@@ -2081,7 +2083,7 @@ package: gerbil
            (generate-typedef stx #'id #'super fields body #t))
           (_ (if (identifier? hd)
                (generate-typedef stx hd #f fields body #t)
-               (raise-syntax-error #f "Bad syntax" stx hd)))))
+               (raise-syntax-error #f "Bad syntax; struct name not an identifier" stx hd)))))
 
       (syntax-case stx ()
         ((_ hd fields . rest)
@@ -2100,7 +2102,7 @@ package: gerbil
            (generate-typedef stx #'id (syntax->list #'super) slots body #f))
           (_ (if (identifier? hd)
                (generate-typedef stx hd [] slots body #f)
-               (raise-syntax-error #f "Bad syntax" stx hd)))))
+               (raise-syntax-error #f "Bad syntax; class name should be an identifier" stx hd)))))
 
       (syntax-case stx ()
         ((_ hd slots . rest)
@@ -2976,7 +2978,7 @@ package: gerbil
     ((recur id match-e)
      (recur id match-e
             (lambda ($stx)
-              (raise-syntax-error #f "Bad syntax" $stx)))))
+              (raise-syntax-error #f "Bad syntax; no macro definition for defsyntax-for-match" $stx)))))
 
   (defrules defrules-for-match ()
     ((_ id . body)

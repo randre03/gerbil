@@ -6,7 +6,7 @@ package: gerbil/runtime
 namespace: #f
 
 (export #t)
-(import "gambit" "util")
+(import "gambit" "util" "control")
 (include "version.ss")
 
 ;; Redundantly define this macro here until the version in the prelude is fully bootstrapped.
@@ -32,11 +32,11 @@ namespace: #f
       (set! i (+ i 1)))
     manifest))
 
-(def (filter-build-manifest all?: (all? #f) layer: (layer #f))
-  (cond
-   (all? build-manifest)
-   (layer (let (l (assoc layer build-manifest)) (if l [l] [])))
-   (else [(car build-manifest)])))
+(def (build-manifest/layer layer)
+  (let (l (assoc layer build-manifest)) (if l [l] [])))
+
+(def (build-manifest/head)
+  [(car build-manifest)])
 
 (def (build-manifest-string (manifest build-manifest))
   (call-with-output-string [] (lambda (p) (display-build-manifest manifest p))))

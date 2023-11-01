@@ -4,7 +4,10 @@
     (lambda (_$stx34337_)
       (let* ((_g3434134352_
               (lambda (_g3434234348_)
-                (gx#raise-syntax-error '#f '"Bad syntax" _g3434234348_)))
+                (gx#raise-syntax-error
+                 '#f
+                 '"Bad syntax; invalid match target"
+                 _g3434234348_)))
              (_g3434034382_
               (lambda (_g3434234356_)
                 (if (gx#stx-pair? _g3434234356_)
@@ -32,5 +35,8 @@
     (lambda (_$stx34386_)
       (let ((_g3438934396_
              (lambda (_g3439034392_)
-               (gx#raise-syntax-error '#f '"Bad syntax" _g3439034392_))))
+               (gx#raise-syntax-error
+                '#f
+                '"Bad syntax; invalid match target"
+                _g3439034392_))))
         (_g3438934396_ _$stx34386_)))))

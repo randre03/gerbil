@@ -1,131 +1,140 @@
 (declare (block) (standard-bindings) (extended-bindings))
 (begin
-  (define gerbil/runtime/system::timestamp 1698333192)
+  (define gerbil/runtime/system::timestamp 1698867094)
   (begin
-    (define gerbil-version-string (lambda () '"v0.18-8-g9c013074"))
+    (define gerbil-version-string (lambda () '"v0.18-18-gb81f43ad"))
     (define gerbil-system-manifest
-      (let ((__tmp8716
-             (let ((__tmp8717
+      (let ((__tmp7138
+             (let ((__tmp7139
                     (let () (declare (not safe)) (gerbil-version-string))))
                (declare (not safe))
-               (cons '"Gerbil" __tmp8717)))
-            (__tmp8713
-             (let ((__tmp8714
-                    (let ((__tmp8715 (system-version-string)))
+               (cons '"Gerbil" __tmp7139)))
+            (__tmp7135
+             (let ((__tmp7136
+                    (let ((__tmp7137 (system-version-string)))
                       (declare (not safe))
-                      (cons '"Gambit" __tmp8715))))
+                      (cons '"Gambit" __tmp7137))))
                (declare (not safe))
-               (cons __tmp8714 '()))))
+               (cons __tmp7136 '()))))
         (declare (not safe))
-        (cons __tmp8716 __tmp8713)))
+        (cons __tmp7138 __tmp7135)))
     (define build-manifest gerbil-system-manifest)
     (set! build-manifest build-manifest)
     (define display-build-manifest__%
-      (lambda (_manifest6570_ _port6571_)
-        (letrec* ((_p6573_ (lambda (_x6607_) (display _x6607_ _port6571_)))
-                  (_l6574_ (length _manifest6570_))
-                  (_i6575_ '0))
+      (lambda (_manifest7081_ _port7082_)
+        (letrec* ((_p7084_ (lambda (_x7118_) (display _x7118_ _port7082_)))
+                  (_l7085_ (length _manifest7081_))
+                  (_i7086_ '0))
           (for-each
-           (lambda (_layer6577_)
-             (if (let () (declare (not safe)) (zero? _i6575_))
+           (lambda (_layer7088_)
+             (if (let () (declare (not safe)) (zero? _i7086_))
                  '#!void
-                 (if (= _i6575_ '1)
-                     (let () (declare (not safe)) (_p6573_ '" on "))
-                     (let () (declare (not safe)) (_p6573_ '", "))))
-             (let* ((_layer65786585_ _layer6577_)
-                    (_E65806589_
-                     (lambda () (error '"No clause matching" _layer65786585_)))
-                    (_K65816595_
-                     (lambda (_version6592_ _name6593_)
-                       (let () (declare (not safe)) (_p6573_ _name6593_))
-                       (let () (declare (not safe)) (_p6573_ '" "))
-                       (let () (declare (not safe)) (_p6573_ _version6592_)))))
-               (if (let () (declare (not safe)) (##pair? _layer65786585_))
-                   (let ((_hd65826598_
+                 (if (= _i7086_ '1)
+                     (let () (declare (not safe)) (_p7084_ '" on "))
+                     (let () (declare (not safe)) (_p7084_ '", "))))
+             (let* ((_layer70897096_ _layer7088_)
+                    (_E70917100_
+                     (lambda () (error '"No clause matching" _layer70897096_)))
+                    (_K70927106_
+                     (lambda (_version7103_ _name7104_)
+                       (let () (declare (not safe)) (_p7084_ _name7104_))
+                       (let () (declare (not safe)) (_p7084_ '" "))
+                       (let () (declare (not safe)) (_p7084_ _version7103_)))))
+               (if (let () (declare (not safe)) (##pair? _layer70897096_))
+                   (let ((_hd70937109_
                           (let ()
                             (declare (not safe))
-                            (##car _layer65786585_)))
-                         (_tl65836600_
+                            (##car _layer70897096_)))
+                         (_tl70947111_
                           (let ()
                             (declare (not safe))
-                            (##cdr _layer65786585_))))
-                     (let* ((_name6603_ _hd65826598_)
-                            (_version6605_ _tl65836600_))
+                            (##cdr _layer70897096_))))
+                     (let* ((_name7114_ _hd70937109_)
+                            (_version7116_ _tl70947111_))
                        (declare (not safe))
-                       (_K65816595_ _version6605_ _name6603_)))
-                   (let () (declare (not safe)) (_E65806589_))))
-             (set! _i6575_ (+ _i6575_ '1)))
-           _manifest6570_))))
+                       (_K70927106_ _version7116_ _name7114_)))
+                   (let () (declare (not safe)) (_E70917100_))))
+             (set! _i7086_ (+ _i7086_ '1)))
+           _manifest7081_))))
     (define display-build-manifest__0
       (lambda ()
-        (let* ((_manifest6613_ build-manifest)
-               (_port6615_ (current-output-port)))
+        (let* ((_manifest7124_ build-manifest)
+               (_port7126_ (current-output-port)))
           (declare (not safe))
-          (display-build-manifest__% _manifest6613_ _port6615_))))
+          (display-build-manifest__% _manifest7124_ _port7126_))))
     (define display-build-manifest__1
-      (lambda (_manifest6617_)
-        (let ((_port6619_ (current-output-port)))
+      (lambda (_manifest7128_)
+        (let ((_port7130_ (current-output-port)))
           (declare (not safe))
-          (display-build-manifest__% _manifest6617_ _port6619_))))
+          (display-build-manifest__% _manifest7128_ _port7130_))))
     (define display-build-manifest
-      (lambda _g8719_
-        (let ((_g8718_ (let () (declare (not safe)) (##length _g8719_))))
-          (cond ((let () (declare (not safe)) (##fx= _g8718_ 0))
+      (lambda _g7141_
+        (let ((_g7140_ (let () (declare (not safe)) (##length _g7141_))))
+          (cond ((let () (declare (not safe)) (##fx= _g7140_ 0))
                  (apply (lambda ()
                           (let ()
                             (declare (not safe))
                             (display-build-manifest__0)))
-                        _g8719_))
-                ((let () (declare (not safe)) (##fx= _g8718_ 1))
-                 (apply (lambda (_manifest6617_)
+                        _g7141_))
+                ((let () (declare (not safe)) (##fx= _g7140_ 1))
+                 (apply (lambda (_manifest7128_)
                           (let ()
                             (declare (not safe))
-                            (display-build-manifest__1 _manifest6617_)))
-                        _g8719_))
-                ((let () (declare (not safe)) (##fx= _g8718_ 2))
-                 (apply (lambda (_manifest6621_ _port6622_)
+                            (display-build-manifest__1 _manifest7128_)))
+                        _g7141_))
+                ((let () (declare (not safe)) (##fx= _g7140_ 2))
+                 (apply (lambda (_manifest7132_ _port7133_)
                           (let ()
                             (declare (not safe))
                             (display-build-manifest__%
-                             _manifest6621_
-                             _port6622_)))
-                        _g8719_))
+                             _manifest7132_
+                             _port7133_)))
+                        _g7141_))
                 (else
                  (##raise-wrong-number-of-arguments-exception
                   display-build-manifest
-                  _g8719_))))))
+                  _g7141_))))))
+    (define build-manifest/layer
+      (lambda (_layer7076_)
+        (let ((_l7078_ (assoc _layer7076_ build-manifest)))
+          (if _l7078_ (let () (declare (not safe)) (cons _l7078_ '())) '()))))
+    (define build-manifest/head
+      (lambda ()
+        (let ((__tmp7142 (car build-manifest)))
+          (declare (not safe))
+          (cons __tmp7142 '()))))
     (define build-manifest-string__%
-      (lambda (_manifest6557_)
+      (lambda (_manifest7063_)
         (call-with-output-string
          '()
-         (lambda (_p6559_)
+         (lambda (_p7065_)
            (let ()
              (declare (not safe))
-             (display-build-manifest__% _manifest6557_ _p6559_))))))
+             (display-build-manifest__% _manifest7063_ _p7065_))))))
     (define build-manifest-string__0
       (lambda ()
-        (let ((_manifest6565_ build-manifest))
+        (let ((_manifest7071_ build-manifest))
           (declare (not safe))
-          (build-manifest-string__% _manifest6565_))))
+          (build-manifest-string__% _manifest7071_))))
     (define build-manifest-string
-      (lambda _g8721_
-        (let ((_g8720_ (let () (declare (not safe)) (##length _g8721_))))
-          (cond ((let () (declare (not safe)) (##fx= _g8720_ 0))
+      (lambda _g7144_
+        (let ((_g7143_ (let () (declare (not safe)) (##length _g7144_))))
+          (cond ((let () (declare (not safe)) (##fx= _g7143_ 0))
                  (apply (lambda ()
                           (let ()
                             (declare (not safe))
                             (build-manifest-string__0)))
-                        _g8721_))
-                ((let () (declare (not safe)) (##fx= _g8720_ 1))
-                 (apply (lambda (_manifest6567_)
+                        _g7144_))
+                ((let () (declare (not safe)) (##fx= _g7143_ 1))
+                 (apply (lambda (_manifest7073_)
                           (let ()
                             (declare (not safe))
-                            (build-manifest-string__% _manifest6567_)))
-                        _g8721_))
+                            (build-manifest-string__% _manifest7073_)))
+                        _g7144_))
                 (else
                  (##raise-wrong-number-of-arguments-exception
                   build-manifest-string
-                  _g8721_))))))
+                  _g7144_))))))
     (define gerbil-system-version-string
       (lambda ()
         (let ()
@@ -137,15 +146,15 @@
     (define gerbil-system (lambda () 'gerbil-gambit))
     (define gerbil-home
       (lambda ()
-        (let ((_$e6551_ (getenv '"GERBIL_HOME" '#f)))
-          (if _$e6551_ _$e6551_ (path-expand '"~~")))))
+        (let ((_$e7057_ (getenv '"GERBIL_HOME" '#f)))
+          (if _$e7057_ _$e7057_ (path-expand '"~~")))))
     (define gerbil-path
       (lambda ()
-        (let ((_$e6547_ (getenv '"GERBIL_PATH" '#f)))
-          (if _$e6547_ _$e6547_ (path-expand '"~/.gerbil")))))
+        (let ((_$e7053_ (getenv '"GERBIL_PATH" '#f)))
+          (if _$e7053_ _$e7053_ (path-expand '"~/.gerbil")))))
     (define gerbil-runtime-smp?
       (lambda ()
         (member '"--enable-smp"
-                (let ((__tmp8722 (configure-command-string)))
+                (let ((__tmp7145 (configure-command-string)))
                   (declare (not safe))
-                  (string-split __tmp8722 '#\')))))))
+                  (string-split __tmp7145 '#\')))))))

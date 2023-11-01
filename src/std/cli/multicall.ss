@@ -56,7 +56,7 @@
 (define-entry-point (help (command #f))
   (help: "Print help about available commands"
    getopt: [(optional-argument 'command help: "subcommand for which to display help")])
-  (displayln (display-build-manifest (filter-build-manifest)))
+  (displayln (display-build-manifest (build-manifest/head)))
   (def gopt (getopt (entry-points-getopt-spec)))
   (def program (current-program-string (cdr (current-program))))
   (if command
@@ -74,7 +74,9 @@
   (help: "Print software version"
    getopt: [(flag 'all? "-a" "--all" help: "also show versions of previous layers")
             (option 'layer "-l" "--layer" help: "show versions for specified layer")])
-  (display-build-manifest (filter-build-manifest all?: all? layer: layer))
+  (display-build-manifest (cond (all? build-manifest)
+                                (layer (build-manifest/layer layer))
+                                (else (build-manifest/head))))
   (newline))
 
 (def (call-entry-point/internal command args)
