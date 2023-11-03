@@ -71,7 +71,7 @@ This can be accomplished with the following incantations in `$GERBIL_SRCDIR/src`
 
 - To compile the bootstrap runtime:
 ```
-gxc -d bootstrap -s -S -O gerbil/runtime/{gambit,system,util,loader,control,mop,error,thread,syntax,eval,repl,init}.ss gerbil/runtime.ss
+gxc -d bootstrap -s -S -O gerbil/runtime/{gambit,util,system,loader,control,c3,mop,error,thread,syntax,eval,repl,init}.ss gerbil/runtime.ss
 ```
 
 - To compile the bootstrap core prelude:
@@ -91,7 +91,7 @@ gxc -d bootstrap -s -S -O gerbil/expander/{common,stx,core,top,module,compile,ro
 
 - To compile the bootstrap compiler:
 ```
-gxc  -d bootstrap -s -S -O gerbil/compiler/{base,compile,optimize-base,optimize-xform,optimize-top,optimize-spec,optimize-ann,optimize-call,optimize,driver,ssxi}.ss gerbil/compiler.ss
+gxc -d bootstrap -s -S -O gerbil/compiler/{base,compile,optimize-base,optimize-xform,optimize-top,optimize-spec,optimize-ann,optimize-call,optimize,driver,ssxi}.ss gerbil/compiler.ss
 ```
 
 - Finally, if you've made changes to it, you should also copy the core.ssxi.ss optimizer prelude:

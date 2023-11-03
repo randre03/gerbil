@@ -6,11 +6,12 @@ package: gerbil/runtime
 namespace: #f
 
 (export #t)
-(import "gambit" "util")
+(import "gambit" "util" "c3")
 
 ;; Gerbil rtd [runtime type descriptor]:
 ;;  {##struct-t id super fields name plist ctor slots methods}
 ;;  {##class-t  id super fields name plist ctor slots methods}
+;; NB: the "plist" field is actually an alist!!! TODO: clean that up at some point.
 ;;
 ;; Gambit structure rtd:
 ;;  (define-type type
@@ -22,17 +23,27 @@ namespace: #f
 ;;
 ;; Gerbil rtd on gambit
 ;; ##structure ##type-type
-;;  1  ##type-id
-;;  2  ##type-name
-;;  3  ##type-flags
-;;  4  ##type-super
-;;  5  ##type-fields
-;;  6                       type-descriptor-mixin
-;;  7                       type-descriptor-fields
-;;  8                       type-descriptor-plist
-;;  9                       type-descriptor-ctor
-;; 10                       type-descriptor-slots
-;; 11                       type-descriptor-methods
+;;  1  ##type-id                                  :: Symbol (sometimes uninterned)
+;;  2  ##type-name                                :: Symbol
+;;  3  ##type-flags                               :: Fixnum
+;;  4  ##type-super                               :: (OrFalse StructTypeDescriptor)
+;;  5  ##type-fields                              :: (Vector [Symbol ??? ???] ...)
+;;  6                 type-descriptor-mixin       :: (List TypeDescriptor)
+;;  7                 type-descriptor-fields      :: Fixnum
+;;  8                 type-descriptor-plist       :: AList (!)
+;;  9                 type-descriptor-ctor        :: Symbol
+;; 10                 type-descriptor-slots       :: (Table (Or Symbol Keyword) -> Fixnum)
+;; 11                 type-descriptor-methods     :: (Table Symbol -> Function)
+;;
+;; Standard "plist" keys:
+;; slots:         (List Symbol)  list of all non-struct slots in order
+;; fields:        (List Symbol)  list of all struct fields in order
+;; direct-slots:  (List Symbol)  list of directly defines slots in order
+;; final:         Bool           is this class final?
+;; transparent:   Bool           is this class transparent?
+
+(def (type=? x y)
+  (eq? (##type-id x) (##type-id y)))
 
 (def (type-descriptor? klass)
   (and (##type? klass)
@@ -218,6 +229,8 @@ namespace: #f
 (def (struct-field-set! klass obj off val)
   (##structure-set! obj val (##fx+ off 1) klass #f))
 
+;; Does xklass inherit from struct klass ?
+;; : StructTypeDescriptor TypeDescriptor -> Bool
 (def (struct-subtype? klass xklass)
   (let (klass-t (##type-id klass))
     (let lp ((next xklass))
@@ -229,174 +242,112 @@ namespace: #f
        (else
         (lp (##type-super next)))))))
 
-;;; class types
-(def (make-class-type id super slots name plist ctor)
-  (def (class-slots klass)
-    (assgetq slots: (type-descriptor-plist klass)))
-
-  (def (make-slots off)
-    (let (slot-table (make-hash-table-eq))
-      (let lp ((rest super) (off off) (slot-list '()))
-        (match rest
-          ([hd . rest]
-           (merge-slots slot-table (class-slots hd) off slot-list
-                        (lambda (off slot-list)
-                          (lp rest off slot-list))))
-          (else
-           (merge-slots slot-table slots off slot-list
-                        (lambda (off slot-list)
-                          (values off slot-table (reverse slot-list)))))))))
-
-  (def (merge-slots ht lst off r K)
-    (let lp ((rest lst) (off off) (r r))
-      (match rest
-        ([slot . rest]
-         (if (hash-get ht slot)
-           (lp rest off r)
-           (begin
-             (hash-put! ht slot off)
-             (hash-put! ht (symbol->keyword slot) off)
-             (lp rest (##fx+ off 1) (cons slot r)))))
-        (else
-         (K off r)))))
-
-  (def (find-super-ctor super)
-    (let lp ((rest super) (ctor #f))
-      (match rest
-        ([hd . rest]
-         (cond
-          ((type-descriptor-ctor hd)
-           => (lambda (xctor)
-                (if (or (not ctor) (eq? ctor xctor))
-                  (lp rest xctor)
-                  (error "Conflicting implicit constructors" ctor xctor))))
-          (else (lp rest ctor))))
-        (else ctor))))
-
-  (def (find-super-struct super)
-    (def (base-struct super-struct klass)
-      (cond
-       (super-struct
-        (cond
-         ((struct-subtype? super-struct klass)
-          (let lp ((klass klass))
-            (if (struct-type? klass)
-              klass
-              (lp (##type-super klass)))))
-         ((struct-subtype? klass super-struct)
-          super-struct)
-         (else
-          (error "Bad mixin: incompatible struct bases" klass super-struct))))
-       ((struct-type? klass) klass)
-       ((class-type? klass)
-        (let lp ((next (##type-super klass)))
-          (cond
-           ((not next)
-            #f)
-           ((struct-type? next)
-            next)
-           ((class-type? next)
-            (lp next))
-           (else #f))))
-       (else #f)))
-
-    (let lp ((rest super) (super-struct #f))
-      (match rest
-        ([hd . rest]
-         (lp rest (base-struct super-struct hd)))
-        (else super-struct))))
-
-  (def (expand-struct-mixin super)
-    (let lp ((rest super) (mixin '()))
-      (match rest
-        ([hd . rest]
-         (if (struct-type? hd)
-           (let lp2 ((next hd) (mixin mixin))
-             (cond
-              ((not next)
-               (lp rest mixin))
-              ((struct-type? next)
-               (lp2 (##type-super next) (cons next mixin)))
-              (else
-               (lp rest mixin))))
-           (lp rest (cons hd mixin))))
-        (else
-         (reverse mixin)))))
-
+;; Which is the most specific struct class if any that klass is or inherits from?
+;; : TypeDescriptor -> (OrFalse StructTypeDescriptor)
+(def (base-struct/1 klass)
   (cond
-   ((find (lambda (klass) (not (type-descriptor? klass))) super)
-    => (lambda (klass)
-         (error "Illegal super class; not a type descriptor" klass)))
-   ((find (lambda (klass)
-             (assgetq final: (type-descriptor-plist klass)))
-           super)
-    => (lambda (klass)
-         (error "Cannot extend final class" klass))))
+   ((struct-type? klass) klass)
+   ((class-type? klass) (##type-super klass))
+   ((not klass) #f)
+   (else (error "Not a class or false" klass))))
 
-  (let* ((std-super (find-super-struct super))
-         (mixin (if std-super (expand-struct-mixin super) super)))
-    (let-values (((std-fields std-slots std-slot-list)
-                  (make-slots (if std-super (type-descriptor-fields std-super) 0))))
-      (let* ((std-mixin  (class-linearize-mixins mixin))
-             (std-plist  (if std-super
-                           (let (fields (assgetq fields: (type-descriptor-plist std-super)))
-                             (cons (cons fields: fields) plist))
-                           plist))
-             (std-plist  (cons (cons slots: std-slot-list) std-plist))
-             (std-ctor   (or ctor (find-super-ctor super))))
-        (make-class-type-descriptor id name std-super std-mixin std-fields std-plist std-ctor std-slots)))))
+;; Which is the most specific struct class if any that both klass1 and klass2 are or inherit from?
+;; : TypeDescriptor TypeDescriptor -> (OrFalse StructTypeDescriptor)
+(def (base-struct/2 klass1 klass2)
+  (def s1 (base-struct/1 klass1))
+  (def s2 (base-struct/1 klass2))
+  (cond
+   ((or (not s1) (and s2 (struct-subtype? s1 s2))) s2)
+   ((or (not s2) (and s1 (struct-subtype? s2 s1))) s1)
+   (else (error "Bad mixin: incompatible struct bases" klass1 klass2 s1 s2))))
 
-(def (class-linearize-mixins klass-lst)
-  (def (class->list klass)
-    (cons klass (or (type-descriptor-mixin klass) '())))
+;; Which is the most specific struct class if any that all argument classes are or inherit from?
+;; : TypeDescriptor ... -> (OrFalse StructTypeDescriptor)
+(def (base-struct . all-supers)
+  (match all-supers
+    ([] #f)
+    ([x] (base-struct/1 x))
+    ([x y] (base-struct/2 x y))
+    ([x y ...] (foldr base-struct/2 x y))))
 
-  (match klass-lst
-    ([] [])
-    ([klass]
-     (class->list klass))
-    (else
-     (__linearize-mixins
-      (map class->list klass-lst)))))
-
-(def (__linearize-mixins lst)
-  (def (K rest r)
+;; Find the constructor method name for the TypeDescriptor
+;; : (List TypeDescriptor) -> Symbol
+(def (find-super-ctor super)
+  (let lp ((rest super) (ctor #f))
     (match rest
       ([hd . rest]
-       (linearize1 hd rest r))
-      (else
-       (reverse r))))
+       (cond
+        ((type-descriptor-ctor hd)
+         => (lambda (xctor)
+              (if (or (not ctor) (eq? ctor xctor))
+                (lp rest xctor)
+                (error "Conflicting implicit constructors" ctor xctor))))
+        (else (lp rest ctor))))
+      (else ctor))))
 
-  (def (linearize1 hd rest r)
-    (match hd
-      ([hd-first . hd-rest]
-       (if (findq hd-first rest)
-         (linearize2 rest (list hd) r)
-         (K (cons hd-rest rest)
-            (putq hd-first r))))
-      (else
-       (K rest r))))
+;; Given a struct super class (or false if none),
+;; a list of super-classes, and
+;; a list of slots,
+;; return the total number of fields and slots
+;; a list of inherited struct fields in offset order,
+;; a table mapping symbol and keyword names to offset, and
+;; a list of non-struct slots.
+;; : (OrFalse StructTypeDescriptor) (List TypeDescriptor) (List Symbol) \
+;; -> Fixnum (List Symbol) (Table (Or Symbol Keyword) -> Fixnum) (List Symbol)
+(def (compute-class-slots std-super mixins slots)
+  (def std-fields (if std-super (type-descriptor-fields std-super) 0))
+  (def field-list (if std-super (assgetq fields: (type-descriptor-plist std-super)) []))
+  (def slot-table (make-hash-table-eq))
+  (def r-slots [])
+  (def (process-slot slot)
+    (cond
+     ((memq slot field-list) (void)) ;; ignore if already a field
+     ((hash-key? slot-table slot) (void)) ;; ignore if already a slot
+     (else
+      (set! r-slots (cons slot r-slots))
+      (hash-put! slot-table slot std-fields)
+      (hash-put! slot-table (symbol->keyword slot) std-fields)
+      (set! std-fields (1+ std-fields)))))
+  (def process-slots (cut for-each process-slot <>))
+  (for-each (lambda (mixin) (process-slots
+                        (assgetq direct-slots: (type-descriptor-plist mixin) [])))
+            (reverse mixins))
+  (process-slots slots)
+  (values std-fields field-list slot-table (reverse r-slots)))
 
-  (def (linearize2 rest pre r)
-    (let lp ((rest rest) (pre pre))
-      (match rest
-        ([hd . rest]
-         (match hd
-           ([hd-first . hd-rest]
-            (if (findq hd-first rest)
-              (lp rest (cons hd pre))
-              (K (foldl cons (cons hd-rest rest) pre)
-                 (putq hd-first r))))
-           (else
-            (lp rest pre)))))))
+;;; ClassTypeDescriptor
+;; : Symbol (List TypeDescriptor) (List Symbol) Symbol PList Constructor???? -> ClassTypeDescriptor
+(def (make-class-type id super slots name plist ctor)
+  (cond
+   ((find (lambda (klass) (not (type-descriptor? klass))) super)
+    => (cut error "Illegal super class; not a type descriptor" <>))
+   ((find (lambda (klass) (assgetq final: (type-descriptor-plist klass))) super)
+    => (cut error "Cannot extend final class" <>)))
 
-  (def (putq hd lst)
-    (if (memq hd lst) lst
-        (cons hd lst)))
+  (def std-super (apply base-struct super)) ;; super struct, if any
+  (def std-mixin (class-linearize-mixins super))
+  (define-values (std-fields field-list std-slots std-slot-list)
+    (compute-class-slots std-super std-mixin slots))
+  (def std-plist
+    [[slots: . std-slot-list]
+     (if std-super [[fields: . field-list]] [])...
+     [direct-slots: . slots]
+     plist ...])
+  (def std-ctor (or ctor (find-super-ctor super)))
 
-  (def (findq hd rest)
-    (find (lambda (lst) (memq hd lst)) rest))
+  (make-class-type-descriptor id name std-super std-mixin std-fields std-plist std-ctor std-slots))
 
-  (K lst '()))
+(def (struct-precedence-list strukt)
+  (cons strukt
+        (let (super (##type-super strukt))
+          (if super (struct-precedence-list super) []))))
+
+(def (class-precedence-list klass)
+  (let (mixins (type-descriptor-mixin klass))
+    (if mixins (cons klass mixins) (struct-precedence-list klass))))
+
+(def (class-linearize-mixins klass-lst)
+  (c3-linearize [] klass-lst class-precedence-list eqv? ##type-name))
 
 (def (make-class-predicate klass)
   (if (assgetq final: (type-descriptor-plist klass))

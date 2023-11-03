@@ -678,3 +678,4 @@ namespace: #f
   (read-substring str 0 (string-length str) port))
 (def (write-string str port)
   (write-substring str 0 (string-length str) port))
+

@@ -3,7 +3,11 @@ package: gerbil/runtime
 namespace: #f
 
 (%#begin (%#export #t)
-         (%#import :gerbil/runtime/gambit :gerbil/runtime/util)
+         (%#import
+          :gerbil/runtime/gambit
+          :gerbil/runtime/util
+          :gerbil/runtime/c3)
+         (%#define-runtime type=? type=?)
          (%#define-runtime type-descriptor? type-descriptor?)
          (%#define-runtime struct-type? struct-type?)
          (%#define-runtime class-type? class-type?)
@@ -47,9 +51,15 @@ namespace: #f
          (%#define-runtime struct-field-ref struct-field-ref)
          (%#define-runtime struct-field-set! struct-field-set!)
          (%#define-runtime struct-subtype? struct-subtype?)
+         (%#define-runtime base-struct/1 base-struct/1)
+         (%#define-runtime base-struct/2 base-struct/2)
+         (%#define-runtime base-struct base-struct)
+         (%#define-runtime find-super-ctor find-super-ctor)
+         (%#define-runtime compute-class-slots compute-class-slots)
          (%#define-runtime make-class-type make-class-type)
+         (%#define-runtime struct-precedence-list struct-precedence-list)
+         (%#define-runtime class-precedence-list class-precedence-list)
          (%#define-runtime class-linearize-mixins class-linearize-mixins)
-         (%#define-runtime __linearize-mixins __linearize-mixins)
          (%#define-runtime make-class-predicate make-class-predicate)
          (%#define-runtime make-class-slot-accessor make-class-slot-accessor)
          (%#define-runtime make-class-slot-mutator make-class-slot-mutator)

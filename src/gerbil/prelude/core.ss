@@ -159,6 +159,8 @@ package: gerbil
     string-split string-join string-empty? string-prefix?
     string->keyword keyword->string make-uninterned-keyword
     symbol->keyword keyword->symbol
+    ;; c3 linearization
+    c3-linearize not-null? remove-nulls append-reverse
     ;; MOP
     type-descriptor?
     struct-type?
@@ -217,7 +219,7 @@ package: gerbil
     error raise
     exception? error-object?
     error-message error-irritants error-trace
-    display-exception
+    display-exception dump-stack-trace?
     ;; OS
     exit getenv setenv
     current-directory create-directory create-directory*
@@ -270,7 +272,9 @@ package: gerbil
     ;; keyword argument dispatch
     keyword-dispatch keyword-rest
     ;; gerbil specifics
-    gerbil-version-string gerbil-system-version-string system-version
+    gerbil-version-string gerbil-system-version-string system-version gerbil-system-manifest
+    ;; build manifest
+    build-manifest build-manifest/layer build-manifest/head display-build-manifest build-manifest-string
     ;; system type information
     gerbil-system system-type
     ;; voodoo doll
@@ -626,7 +630,9 @@ package: gerbil
         ((_ message detail ...)
          (stx-string? #'message)
          (apply raise-syntax-error #f (stx-e #'message) stx
-                (syntax->list #'(detail ...)))))))
+                (syntax->list #'(detail ...))))))
+
+    (defrules defmutable () ((_ var value) (begin (def var value) (set! var var) (void)))))
 
   (import <sugar:1>
           (phi: +1 <sugar:1>))

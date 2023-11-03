@@ -413,6 +413,10 @@ namespace: gerbil/core
                     (make-uninterned-keyword make-uninterned-keyword)
                     (symbol->keyword symbol->keyword)
                     (keyword->symbol keyword->symbol)
+                    (c3-linearize c3-linearize)
+                    (not-null? not-null?)
+                    (remove-nulls remove-nulls)
+                    (append-reverse append-reverse)
                     (type-descriptor? type-descriptor?)
                     (struct-type? struct-type?)
                     (class-type? class-type?)
@@ -490,6 +494,7 @@ namespace: gerbil/core
                     (error-irritants error-irritants)
                     (error-trace error-trace)
                     (display-exception display-exception)
+                    (dump-stack-trace? dump-stack-trace?)
                     (exit exit)
                     (getenv getenv)
                     (setenv setenv)
@@ -581,6 +586,12 @@ namespace: gerbil/core
                     (gerbil-version-string gerbil-version-string)
                     (gerbil-system-version-string gerbil-system-version-string)
                     (system-version system-version)
+                    (gerbil-system-manifest gerbil-system-manifest)
+                    (build-manifest build-manifest)
+                    (build-manifest/layer build-manifest/layer)
+                    (build-manifest/head build-manifest/head)
+                    (display-build-manifest display-build-manifest)
+                    (build-manifest-string build-manifest-string)
                     (gerbil-system gerbil-system)
                     (system-type system-type)
                     (gerbil-runtime-smp? gerbil-runtime-smp?)
@@ -932,7 +943,10 @@ namespace: gerbil/core
                               |gerbil/core$<sugar>$<sugar:1>[:0:]#unless|)
                              (%#define-syntax
                               syntax-error
-                              |gerbil/core$<sugar>$<sugar:1>[:0:]#syntax-error|)))
+                              |gerbil/core$<sugar>$<sugar:1>[:0:]#syntax-error|)
+                             (%#define-syntax
+                              defmutable
+                              |gerbil/core$<sugar>$<sugar:1>[:0:]#defmutable|)))
                    (%#import (in: #f <sugar:1>) (phi: 1 (in: #f <sugar:1>)))
                    (%#module
                     <sugar:2>
