@@ -426,7 +426,23 @@ displaying the exception with `display-exception`).
 ```
 
 Invokes `thunk` with an exception handler that dumps the exception
-stack trace with `dump-stack-trace!`.
+stack trace with `dump-stack-trace!`
+if `(dump-stack-trace?)` is true (the default).
+
+### dump-stack-trace?
+```scheme
+(define dump-stack-trace? (make-parameter #t))
+```
+A parameter that controls whether `with-exception-stack-trace`
+will actually dump a stack trace to standard error.
+
+You can `(dump-stack-trace? #f)`
+or locally `(parameterize ((dump-stack-trace? #f)) ...)`
+to disable this stack trace dump,
+in case you are building a program for end-users rather than for developers,
+and want to control what limited error output they see.
+Or you can re-enable them based on a debug flag at the CLI
+in cases you want them to provide you with extra debugging information.
 
 ### dump-stack-trace!
 ```scheme
@@ -435,3 +451,38 @@ stack trace with `dump-stack-trace!`.
 
 Displays the exception `exn`, dumping the stack trace of continuation
 `cont` if there is no stack trace information in the exception itself.
+
+### exit-with-error
+```scheme
+(exit-with-error exception) => [exit]
+```
+Display the `exception` to current error port and exit with error code 2.
+
+### exit-on-error?
+```scheme
+(def exit-on-error? (make-parameter #t))
+```
+This parameter controls whether `call-with-exit-on-error`, `with-exit-on-error`,
+`call-with-getopt`, and any function that indirectly uses them,
+will exit if an error is caught, rather than pass on the error
+and return to the REPL (or let a more fundamental function exit).
+
+### call-with-exit-on-error
+```scheme
+(call-with-exit-on-error thunk)
+```
+Calls the `thunk` in an environment wherein if an error is caught and
+`(exit-on-error)` is true, `exit-with-error` will be called,
+causing an error message to be printed and the process to exit with exit code 2.
+If `(exit-on-error)` is false, the error will simply be raised again.
+
+This mechanism enables users to modify the parameter
+(e.g. via a flag passed at the Unix CLI or a change made at the Scheme REPL)
+and control whether to exit with an error (e.g. for end-users)
+or enter a debugger REPL (e.g. for developers).
+
+### with-exit-on-error
+```scheme
+(with-exit-on-error body ...)
+```
+Evaluates the `body` as in a `thunk` passed to `call-with-exit-on-error`.
