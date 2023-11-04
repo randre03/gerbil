@@ -632,7 +632,8 @@ package: gerbil
          (apply raise-syntax-error #f (stx-e #'message) stx
                 (syntax->list #'(detail ...))))))
 
-    (defrules defmutable () ((_ var value) (begin (def var value) (set! var var) (void)))))
+    (defrules defmutable ()
+      ((_ var value) (begin (def var value) (set! var var) (void)))))
 
   (import <sugar:1>
           (phi: +1 <sugar:1>))

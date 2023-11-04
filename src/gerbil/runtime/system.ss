@@ -10,7 +10,8 @@ namespace: #f
 (include "version.ss")
 
 ;; Redundantly define this macro here until the version in the prelude is fully bootstrapped.
-(defrules defmutable () ((_ var value) (begin (def var value) (set! var var) (void))))
+(defrules defmutable ()
+  ((_ var value) (begin (def var value) (set! var var) (void))))
 
 (def gerbil-system-manifest
   [["Gerbil" :: (gerbil-version-string)]
@@ -19,21 +20,22 @@ namespace: #f
 (defmutable build-manifest gerbil-system-manifest)
 
 (def (display-build-manifest (manifest build-manifest) (port (current-output-port)))
-  (def (p x) (display x port))
-  (def l (length manifest))
-  (def i 0)
-  (for-each ;; we can't use for (for ((i (in-range l)) (layer manifest)) ...)
-    (lambda (layer)
-      (cond
-       ((zero? i) (void))
-       ((= i 1) (p " on "))
-       (else (p ", ")))
-      (match layer ([name . version] (p name) (p " ") (p version)))
-      (set! i (+ i 1)))
-    manifest))
+  (let ((p (cut display <> port))
+        (l (length manifest))
+        (i 0))
+    (for-each ;; we can't use for (for ((i (in-range l)) (layer manifest)) ...)
+      (lambda (layer)
+        (cond
+         ((zero? i) (void))
+         ((= i 1) (p " on "))
+         (else (p ", ")))
+        (match layer ([name . version] (p name) (p " ") (p version)))
+        (set! i (+ i 1)))
+      manifest)))
 
 (def (build-manifest/layer layer)
-  (let (l (assoc layer build-manifest)) (if l [l] [])))
+  (let (l (assoc layer build-manifest))
+    (if l [l] [])))
 
 (def (build-manifest/head)
   [(car build-manifest)])

@@ -295,25 +295,26 @@ namespace: #f
 ;; : (OrFalse StructTypeDescriptor) (List TypeDescriptor) (List Symbol) \
 ;; -> Fixnum (List Symbol) (Table (Or Symbol Keyword) -> Fixnum) (List Symbol)
 (def (compute-class-slots std-super mixins slots)
-  (def std-fields (if std-super (type-descriptor-fields std-super) 0))
-  (def field-list (if std-super (assgetq fields: (type-descriptor-plist std-super)) []))
-  (def slot-table (make-hash-table-eq))
-  (def r-slots [])
-  (def (process-slot slot)
-    (cond
-     ((memq slot field-list) (void)) ;; ignore if already a field
-     ((hash-key? slot-table slot) (void)) ;; ignore if already a slot
-     (else
-      (set! r-slots (cons slot r-slots))
-      (hash-put! slot-table slot std-fields)
-      (hash-put! slot-table (symbol->keyword slot) std-fields)
-      (set! std-fields (1+ std-fields)))))
-  (def process-slots (cut for-each process-slot <>))
-  (for-each (lambda (mixin) (process-slots
-                        (assgetq direct-slots: (type-descriptor-plist mixin) [])))
-            (reverse mixins))
-  (process-slots slots)
-  (values std-fields field-list slot-table (reverse r-slots)))
+  (let* ((std-fields (if std-super (type-descriptor-fields std-super) 0))
+         (field-list (if std-super (assgetq fields: (type-descriptor-plist std-super)) []))
+         (slot-table (make-hash-table-eq))
+         (r-slots [])
+         (process-slot
+          (lambda (slot)
+            (cond
+             ((memq slot field-list) (void)) ;; ignore if already a field
+             ((hash-key? slot-table slot) (void)) ;; ignore if already a slot
+             (else
+              (set! r-slots (cons slot r-slots))
+              (hash-put! slot-table slot std-fields)
+              (hash-put! slot-table (symbol->keyword slot) std-fields)
+              (set! std-fields (fx1+ std-fields))))))
+         (process-slots (cut for-each process-slot <>)))
+    (for-each (lambda (mixin) (process-slots
+                          (assgetq direct-slots: (type-descriptor-plist mixin) [])))
+              (reverse mixins))
+    (process-slots slots)
+    (values std-fields field-list slot-table (reverse r-slots))))
 
 ;;; ClassTypeDescriptor
 ;; : Symbol (List TypeDescriptor) (List Symbol) Symbol PList Constructor???? -> ClassTypeDescriptor
@@ -324,18 +325,18 @@ namespace: #f
    ((find (lambda (klass) (assgetq final: (type-descriptor-plist klass))) super)
     => (cut error "Cannot extend final class" <>)))
 
-  (def std-super (apply base-struct super)) ;; super struct, if any
-  (def std-mixin (class-linearize-mixins super))
-  (define-values (std-fields field-list std-slots std-slot-list)
-    (compute-class-slots std-super std-mixin slots))
-  (def std-plist
-    [[slots: . std-slot-list]
-     (if std-super [[fields: . field-list]] [])...
-     [direct-slots: . slots]
-     plist ...])
-  (def std-ctor (or ctor (find-super-ctor super)))
+  (let*-values (((std-super) (apply base-struct super)) ;; super struct, if any
+                ((std-mixin) (class-linearize-mixins super))
+                ((std-fields field-list std-slots std-slot-list)
+                 (compute-class-slots std-super std-mixin slots))
+                ((std-plist)
+                 [[slots: . std-slot-list]
+                  (if std-super [[fields: . field-list]] [])...
+                  [direct-slots: . slots]
+                  plist ...])
+                ((std-ctor) (or ctor (find-super-ctor super))))
 
-  (make-class-type-descriptor id name std-super std-mixin std-fields std-plist std-ctor std-slots))
+    (make-class-type-descriptor id name std-super std-mixin std-fields std-plist std-ctor std-slots)))
 
 (def (struct-precedence-list strukt)
   (cons strukt

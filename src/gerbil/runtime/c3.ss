@@ -34,8 +34,9 @@ namespace: #f
 ;; - get-name gets the name of a object/class, for debugging only.
 ;; : (List X) (List X) (X -> (NonEmptyList X)) ?(X X -> Bool) ?(X -> Y) -> (List X)
 (def (c3-linearize rhead supers get-precedence-list (eqpred eqv?) (get-name identity))
-  (def super-precedence-lists (map get-precedence-list supers)) ;; : (List (NonEmptyList X))
-  (c3-linearize-loop rhead (remove-nulls (append super-precedence-lists [supers])) eqpred get-name))
+  (let (tails (map get-precedence-list supers)) ;; : (List (NonEmptyList X))
+    (append1! tails supers)
+    (c3-linearize-loop rhead (remove-nulls! tails) eqpred get-name)))
 
 ;; The main loop for c3
 ;; : (List X) (List (NonEmptyList X)) ?(X X -> Bool) ?(X -> Y) -> (List X)
@@ -48,25 +49,33 @@ namespace: #f
                            tails: (map (cut map get-name <>) tails)))
                  (next (c3-select-next tails eqpred err)))
             (c3-linearize-loop (cons next rhead)
-                               (remove-next next tails eqpred)
+                               (remove-next! next tails eqpred)
                                eqpred get-name)))))
 
 ;; Next super selection loop, enforcing the ordering constraint and
 ;; otherwise implementing the earlier-in-list-first search heuristic.
 ;; : (NonEmptyList (NonEmptyList X)) ?(X X -> Bool) ?(-> Bottom) -> X
 (def (c3-select-next tails eqpred err)
-  (def (candidate? c) ;; : X -> Bool
-    (every/1 (lambda (tail) (not (member c (cdr tail) eqpred))) tails))
-  (let loop ((ts tails))
-    (match ts
-      ([[c . _] . rts] (if (candidate? c) c (loop rts)))
-      (else
-       (err)))))
+  (let (candidate? ;; : X -> Bool
+        (lambda (c) (every/1 (lambda (tail) (not (member c (cdr tail) eqpred))) tails)))
+    (let loop ((ts tails))
+      (match ts
+        ([[c . _] . rts]
+         (if (candidate? c) c (loop rts)))
+        (else
+         (err))))))
 
 ;; Cleanup after lists after next element in the precedence list was chosen
 ;; : X (List (NonEmptyList X)) ?(X X -> Bool) -> (List (NonEmptyList X))
-(def (remove-next next tails (eqpred eqv?))
-  (remove-nulls (map (lambda (l) (if (eqpred (car l) next) (cdr l) l)) tails)))
+(def (remove-next! next tails (eqpred eqv?))
+  (let loop ((t tails))
+    (match t
+      ([] (void))
+      ([[head . tail] . more]
+       (when (eqpred head next)
+         (set-car! t tail))
+       (loop more))))
+  (remove-nulls! tails))
 
 ;;; General-Purpose Utilities
 
@@ -74,9 +83,26 @@ namespace: #f
 ;; : (List X) -> Bool
 (def (not-null? l) (not (null? l)))
 
-;; Remove the empty lists from a list of lists
+;; Destructively remove the empty lists from a list of lists, returns the list.
 ;; : (List (List X)) -> (List (NonEmptyList X))
-(def (remove-nulls l) (filter not-null? l))
+(def (remove-nulls! l)
+  (match l
+    ([[] . r]
+     (remove-nulls! r))
+    ([_ . r]
+     (let loop ((l l) (r r))
+       (match r
+         ([[] . rr] (set-cdr! l (remove-nulls! rr)))
+         ([_ . rr] (loop r rr))
+         (_ (void))))
+     l)
+    (_ l)))
+
+(def (append1! l x)
+  (let (l2 [x])
+    (if (pair? l)
+      (set-cdr! (##last-pair l) l2)
+      l2)))
 
 ;; Append the reverse of the list in first argument and the list in second argument
 ;; ~= (append (reverse rev-head) tail)
