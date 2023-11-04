@@ -162,5 +162,5 @@
       ;; Previously returned (O C A B J1 D J3 E J2 Y)), which is so wrong:
       (check (cdr (assq slots: (type-descriptor-plist Y::t))) => '(O E D B J2 A J3 C J1 Y))
 
-      (check (c3-linearize-loop [] '((import-expander user-expander) (export-expander user-expander) (import-expander export-expander))) => '(import-expander export-expander user-expander))
+      (check (c3-linearize-loop [] (map copy-list '((import-expander user-expander) (export-expander user-expander) (import-expander export-expander)))) => '(import-expander export-expander user-expander))
       )))
