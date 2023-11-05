@@ -189,7 +189,7 @@ For an example, here the a command line parser for the `gxpkg` program:
        (search-pkgs .keywords)))))
 ```
 
-### getopt-parse-&gt;function-arguments
+### getopt-parse->function-arguments
 ```scheme
 (getopt-parse->function-arguments getopt h) => list-of-arguments
 ```
@@ -250,7 +250,7 @@ e.g. with prototype objects like `gerbil-poo`.
 TODO: add examples, discuss abort-on-error behavior,
 lack of automatic help, etc.
 
-### -&gt;getopt-spec
+### ->getopt-spec
 ```scheme
 (->getopt-spec arg) => list-of-getopt-arguments
 ```

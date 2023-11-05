@@ -1,6 +1,6 @@
-# Unix Command Line Interface
+# Command Line Interface
 
-The following libraries are provided to support the Unix Command Line Interface (CLI):
+The following libraries are provided to support the Command Line Interface (CLI):
 - [:std/cli/getopt](getopt.md)
 - [:std/cli/shell](shell.md)
 - [:std/cli/print-exit](print-exit.md)

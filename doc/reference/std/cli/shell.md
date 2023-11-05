@@ -70,7 +70,7 @@ when included in a Unix shell command, will expand into the input `string`.
 ```
 :::
 
-### -&gt;envvar
+### ->envvar
 ```scheme
 (->envvar . str) => environment-variable-name
 ```
