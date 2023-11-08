@@ -31,7 +31,7 @@ namespace: #f
 ;;  6                 type-descriptor-mixin       :: (List TypeDescriptor)
 ;;  7                 type-descriptor-fields      :: Fixnum
 ;;  8                 type-descriptor-plist       :: AList (!)
-;;  9                 type-descriptor-ctor        :: Symbol
+;;  9                 type-descriptor-ctor        :: (OrFalse Symbol)
 ;; 10                 type-descriptor-slots       :: (Table (Or Symbol Keyword) -> Fixnum)
 ;; 11                 type-descriptor-methods     :: (Table Symbol -> Function)
 ;;
@@ -263,12 +263,15 @@ namespace: #f
 
 ;; Which is the most specific struct class if any that all argument classes are or inherit from?
 ;; : TypeDescriptor ... -> (OrFalse StructTypeDescriptor)
-(def (base-struct . all-supers)
+(def (base-struct/list all-supers)
   (match all-supers
     ([] #f)
     ([x] (base-struct/1 x))
     ([x y] (base-struct/2 x y))
     ([x y ...] (foldr base-struct/2 x y))))
+
+(def (base-struct . all-supers)
+  (base-struct/list all-supers))
 
 ;; Find the constructor method name for the TypeDescriptor
 ;; : (List TypeDescriptor) -> Symbol
@@ -325,16 +328,16 @@ namespace: #f
    ((find (lambda (klass) (assgetq final: (type-descriptor-plist klass))) super)
     => (cut error "Cannot extend final class" <>)))
 
-  (let*-values (((std-super) (apply base-struct super)) ;; super struct, if any
-                ((std-mixin) (class-linearize-mixins super))
-                ((std-fields field-list std-slots std-slot-list)
-                 (compute-class-slots std-super std-mixin slots))
-                ((std-plist)
-                 [[slots: . std-slot-list]
-                  (if std-super [[fields: . field-list]] [])...
-                  [direct-slots: . slots]
-                  plist ...])
-                ((std-ctor) (or ctor (find-super-ctor super))))
+  (let* ((std-super (base-struct/list super)) ;; super struct, if any
+         (std-mixin (class-linearize-mixins super))
+         ((values std-fields field-list std-slots std-slot-list)
+          (compute-class-slots std-super std-mixin slots))
+         (std-plist
+          [[slots: . std-slot-list]
+           (if std-super [[fields: . field-list]] [])...
+           [direct-slots: . slots]
+           plist ...])
+         (std-ctor (or ctor (find-super-ctor super))))
 
     (make-class-type-descriptor id name std-super std-mixin std-fields std-plist std-ctor std-slots)))
 
@@ -352,18 +355,15 @@ namespace: #f
 
 (def (make-class-predicate klass)
   (if (assgetq final: (type-descriptor-plist klass))
-    (lambda (obj)
-      (direct-class-instance? klass obj))
-    (lambda (obj)
-      (class-instance? klass obj))))
+    (cut direct-class-instance? klass <>)
+    (cut class-instance? klass <>)))
 
 (def (make-class-slot-accessor klass slot)
-  (lambda (obj)
-    (slot-ref obj slot)))
+  (cut slot-ref <> slot))
 
 (def (make-class-slot-mutator klass slot)
   (lambda (obj val)
-    (slot-set! obj slot val)))
+    (cut slot-set! obj slot val)))
 
 (def (make-class-slot-unchecked-accessor klass slot)
   (lambda (obj)

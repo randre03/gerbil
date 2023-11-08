@@ -41,23 +41,24 @@ namespace: #f
 ;; The main loop for c3
 ;; : (List X) (List (NonEmptyList X)) ?(X X -> Bool) ?(X -> Y) -> (List X)
 (def (c3-linearize-loop rhead tails (eqpred eqv?) (get-name identity))
-  (match tails
-    ([] (reverse rhead))
-    ([tail] (append-reverse rhead tail))
-    (else (let* ((err (cut error "Inconsistent precedence graph"
-                           head: (map get-name (reverse rhead))
-                           tails: (map (cut map get-name <>) tails)))
-                 (next (c3-select-next tails eqpred err)))
-            (c3-linearize-loop (cons next rhead)
-                               (remove-next! next tails eqpred)
-                               eqpred get-name)))))
+  (let loop ((rhead rhead) (tails tails))
+    (match tails
+      ([] (reverse rhead))
+      ([tail] (append-reverse rhead tail))
+      (else
+       (let* ((err (cut error "Inconsistent precedence graph"
+                        head: (map get-name (reverse rhead))
+                        tails: (map (cut map get-name <>) tails)))
+              (next (c3-select-next tails eqpred err)))
+         (loop (cons next rhead)
+               (remove-next! next tails eqpred)))))))
 
 ;; Next super selection loop, enforcing the ordering constraint and
 ;; otherwise implementing the earlier-in-list-first search heuristic.
 ;; : (NonEmptyList (NonEmptyList X)) ?(X X -> Bool) ?(-> Bottom) -> X
 (def (c3-select-next tails eqpred err)
   (let (candidate? ;; : X -> Bool
-        (lambda (c) (every/1 (lambda (tail) (not (member c (cdr tail) eqpred))) tails)))
+        (lambda (c) (andmap (lambda (tail) (not (member c (cdr tail) eqpred))) tails)))
     (let loop ((ts tails))
       (match ts
         ([[c . _] . rts]
@@ -105,18 +106,9 @@ namespace: #f
       l2)))
 
 ;; Append the reverse of the list in first argument and the list in second argument
-;; ~= (append (reverse rev-head) tail)
+;; = (append (reverse rev-head) tail) = (fold cons tail rev-head) ;; same as in SRFI 1.
 ;; : (List X) (List X) -> (List X)
 (def (append-reverse rev-head tail)
   (match rev-head
     ([hd . tl] (append-reverse tl (cons hd tail)))
     ([] tail)))
-
-;; True if every element in the list satisfies the predicate
-;; Simplified variant of every, not as general as the implementation in SRFI 1:
-;; it doesn't handle multiple lists, and doesn't return the last PRED value.
-;; : (X -> Bool) (List X) -> Bool
-(def (every/1 pred list)
-  (match list
-    ([x . r] (and (pred x) (every/1 pred r)))
-    (else #t)))
