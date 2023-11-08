@@ -1,5 +1,5 @@
 ;; -*- Gerbil -*-
-;;;; Support for building a single multicall binary that has all the fricfrac functionality.
+;;;; Support for building a single multicall binary.
 
 (export #t)
 
