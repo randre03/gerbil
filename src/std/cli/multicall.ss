@@ -4,13 +4,13 @@
 (export #t)
 
 (import
+  (only-in :std/cli/getopt getopt getopt-display-help-topic getopt-display-help
+           call-with-processed-command-line ->getopt-spec
+           command flag option argument optional-argument rest-arguments)
   (only-in :std/cli/print-exit begin-print-exit)
   (only-in :std/cli/shell easy-shell-character?)
   (only-in :std/format format)
   (only-in :std/generic defgeneric)
-  (only-in :std/getopt getopt getopt-display-help-topic getopt-display-help
-           call-with-processed-command-line ->getopt-spec
-           command flag option argument optional-argument rest-arguments)
   (only-in :std/iter for/collect)
   (only-in :std/misc/hash hash->list/sort)
   (only-in :std/misc/list flatten)
